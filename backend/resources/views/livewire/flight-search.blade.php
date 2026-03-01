@@ -1,10 +1,8 @@
 <div>
-    @teleport('body')
     {{-- Overlay backdrop --}}
     @if($showFromModal || $showToModal || $showPassengerModal || $showDateModal || $showReturnModal)
     <div class="fixed inset-0 bg-black/60 z-[9990]" wire:click="closeModals"></div>
     @endif
-    @endteleport
 
     {{-- Flight type tabs --}}
     <div class="flex justify-center mb-6">
@@ -80,7 +78,6 @@
                 <input type="hidden" name="date" value="{{ $date }}">
             </div>
 
-            @teleport('body')
             {{-- Departure calendar modal (fixed, centered) --}}
             @if($showDateModal)
             <div class="fixed inset-0 z-[9999] flex items-center justify-center px-4">
@@ -125,7 +122,6 @@
                 </div>
             </div>
             @endif
-            @endteleport
 
             {{-- Return Date (roundtrip only) --}}
             @if($tripType === 'roundtrip')
@@ -142,7 +138,6 @@
             </div>
             @endif
 
-            @teleport('body')
             {{-- Return calendar modal (fixed, centered) --}}
             @if($showReturnModal)
             <div class="fixed inset-0 z-[9999] flex items-center justify-center px-4">
@@ -187,7 +182,6 @@
                 </div>
             </div>
             @endif
-            @endteleport
 
             {{-- Passengers --}}
             <div class="flex-1 min-w-0">
@@ -208,7 +202,6 @@
     </form>
 
 
-    @teleport('body')
     {{-- ======== FROM MODAL ======== --}}
     @if($showFromModal)
     <div class="fixed inset-0 z-[9999] flex items-start justify-center pt-4 px-3 overflow-y-auto">
@@ -295,9 +288,6 @@
     </div>
     @endif
 
-    @endteleport
-
-    @teleport('body')
     {{-- ======== TO MODAL ======== --}}
     @if($showToModal)
     <div class="fixed inset-0 z-[9999] flex items-start justify-center pt-4 px-3 overflow-y-auto">
@@ -381,9 +371,6 @@
     </div>
     @endif
 
-    @endteleport
-
-    @teleport('body')
     {{-- ======== PASSENGER MODAL ======== --}}
     @if($showPassengerModal)
     <div class="fixed inset-0 z-[9999] flex items-center justify-center px-4">
@@ -458,5 +445,4 @@
         </div>
     </div>
     @endif
-    @endteleport
 </div>

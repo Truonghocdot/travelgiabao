@@ -6,12 +6,12 @@
 
 @section('content')
 
-<section class="relative h-auto min-h-[420px] w-full flex items-center justify-center overflow-hidden py-12">
+<section class="relative h-auto min-h-[420px] w-full flex items-center justify-center py-12">
     <img alt="Máy bay trên bầu trời xanh" class="absolute inset-0 w-full h-full object-cover brightness-75"
         src="https://lh3.googleusercontent.com/aida-public/AB6AXuDOUNqqqV_GMB7B85V3pW52tXW9MYMC-Y3rAm4KsxO72imzty5ThzU1oHd7-Y4VH41km7JLYWPHatLT3f8I34fdPfsiQ290GqgWEGIS-Sn0MtsdjxmqbjkfYwnGm5GfAY9UZtGkUm8dAgNgZUwAFj6NyWoUTEX6DExwtTyzXelPPizXZPIpc-GzKeyTUcmTwDTPsa6Tb8mfeBj24AxEgzIqUmw-SVTesqUcbutycPfAZEQEQg2GYrp2UML_rg6q78NsMoD8B1M1pD4" />
     <div class="absolute inset-0 bg-gradient-to-b from-primary/30 to-transparent"></div>
     <div class="relative z-10 w-full max-w-5xl px-6">
-        <div class="bg-white/90 dark:bg-slate-800/90 backdrop-blur-md p-6 md:p-8 md:my-0 my-3 rounded-2xl shadow-2xl border border-white/20">
+        <div class="bg-white dark:bg-slate-800 p-6 md:p-8 md:my-0 my-3 rounded-2xl shadow-2xl border border-white/20">
             <livewire:flight-search />
         </div>
     </div>
