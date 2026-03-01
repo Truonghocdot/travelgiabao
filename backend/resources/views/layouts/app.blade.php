@@ -149,11 +149,9 @@
 
     {{-- Floating Contact Bar --}}
     <div class="fixed bottom-6 right-6 flex flex-col space-y-3 z-[9999]">
-        <a href="https://zalo.me/0981119692" target="_blank" rel="noopener noreferrer" aria-label="Chat Zalo" class="w-12 h-12 bg-[#0068FF] rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-transform hover:shadow-xl relative group cursor-pointer border-2 border-white dark:border-slate-800">
-            <svg class="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
-            </svg>
-            <span class="absolaute right-full mr-3 bg-white text-slate-800 text-xs font-bold px-3 py-1.5 rounded-lg shadow-md opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">Zalo</span>
+        <a href="https://zalo.me/0912345678" target="_blank" rel="noopener noreferrer" aria-label="Chat Zalo" class="w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-transform hover:shadow-xl relative group cursor-pointer border-2 border-slate-100 dark:border-slate-800 p-1.5 object-cover overflow-hidden">
+            <img src="{{ asset('Icon_of_Zalo.svg.png') }}" class="w-full h-full object-contain" alt="Zalo Logo">
+            <span class="absolute right-full mr-3 bg-white text-slate-800 text-xs font-bold px-3 py-1.5 rounded-lg shadow-md opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">Zalo</span>
         </a>
         <a href="viber://chat?number=0981119692" target="_blank" rel="noopener noreferrer" aria-label="Chat Viber" class="w-12 h-12 bg-[#7360F2] rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-transform hover:shadow-xl relative group cursor-pointer border-2 border-white dark:border-slate-800">
             <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
