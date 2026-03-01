@@ -46,34 +46,35 @@ class DatabaseSeeder extends Seeder
 
         $vnAirports = [
             // Miền Bắc
-            ['sub_region_id' => $mienBac->id, 'name' => 'Điện Biên Phủ', 'code' => 'DIN', 'base_price' => 1200000],
-            ['sub_region_id' => $mienBac->id, 'name' => 'Hà Nội', 'code' => 'HAN', 'base_price' => 890000],
-            ['sub_region_id' => $mienBac->id, 'name' => 'Hải Phòng', 'code' => 'HPH', 'base_price' => 950000],
-            ['sub_region_id' => $mienBac->id, 'name' => 'Vân Đồn', 'code' => 'VDO', 'base_price' => 1100000],
+            ['sub_region_id' => $mienBac->id, 'name' => 'Điện Biên Phủ', 'code' => 'DIN', 'base_price' => 1200000, 'min_price' => 1100000, 'max_price' => 2400000],
+            ['sub_region_id' => $mienBac->id, 'name' => 'Hà Nội',        'code' => 'HAN', 'base_price' =>  890000, 'min_price' =>  793240, 'max_price' => 1602000],
+            ['sub_region_id' => $mienBac->id, 'name' => 'Hải Phòng',     'code' => 'HPH', 'base_price' =>  950000, 'min_price' =>  850000, 'max_price' => 1800000],
+            ['sub_region_id' => $mienBac->id, 'name' => 'Vân Đồn',       'code' => 'VDO', 'base_price' => 1100000, 'min_price' =>  980000, 'max_price' => 2000000],
             // Miền Nam
-            ['sub_region_id' => $mienNam->id, 'name' => 'Hồ Chí Minh', 'code' => 'SGN', 'base_price' => 890000],
-            ['sub_region_id' => $mienNam->id, 'name' => 'Cà Mau', 'code' => 'CAH', 'base_price' => 1350000],
-            ['sub_region_id' => $mienNam->id, 'name' => 'Phú Quốc', 'code' => 'PQC', 'base_price' => 1500000],
-            ['sub_region_id' => $mienNam->id, 'name' => 'Cần Thơ', 'code' => 'VCA', 'base_price' => 1100000],
-            ['sub_region_id' => $mienNam->id, 'name' => 'Côn Đảo', 'code' => 'VCS', 'base_price' => 1800000],
-            ['sub_region_id' => $mienNam->id, 'name' => 'Kiên Giang', 'code' => 'VKG', 'base_price' => 1400000],
+            ['sub_region_id' => $mienNam->id, 'name' => 'Hồ Chí Minh',   'code' => 'SGN', 'base_price' =>  890000, 'min_price' =>  793240, 'max_price' => 1602000],
+            ['sub_region_id' => $mienNam->id, 'name' => 'Cà Mau',         'code' => 'CAH', 'base_price' => 1350000, 'min_price' => 1200000, 'max_price' => 2500000],
+            ['sub_region_id' => $mienNam->id, 'name' => 'Phú Quốc',       'code' => 'PQC', 'base_price' => 1500000, 'min_price' => 1300000, 'max_price' => 2800000],
+            ['sub_region_id' => $mienNam->id, 'name' => 'Cần Thơ',        'code' => 'VCA', 'base_price' => 1100000, 'min_price' =>  950000, 'max_price' => 2100000],
+            ['sub_region_id' => $mienNam->id, 'name' => 'Côn Đảo',        'code' => 'VCS', 'base_price' => 1800000, 'min_price' => 1600000, 'max_price' => 3200000],
+            ['sub_region_id' => $mienNam->id, 'name' => 'Kiên Giang',     'code' => 'VKG', 'base_price' => 1400000, 'min_price' => 1250000, 'max_price' => 2600000],
             // Miền Trung
-            ['sub_region_id' => $mienTrung->id, 'name' => 'Ban Mê Thuột', 'code' => 'BMV', 'base_price' => 980000],
-            ['sub_region_id' => $mienTrung->id, 'name' => 'Nha Trang', 'code' => 'CXR', 'base_price' => 1050000],
-            ['sub_region_id' => $mienTrung->id, 'name' => 'Đà Nẵng', 'code' => 'DAD', 'base_price' => 950000],
-            ['sub_region_id' => $mienTrung->id, 'name' => 'Đà Lạt', 'code' => 'DLI', 'base_price' => 1100000],
-            ['sub_region_id' => $mienTrung->id, 'name' => 'Huế', 'code' => 'HUI', 'base_price' => 1000000],
-            ['sub_region_id' => $mienTrung->id, 'name' => 'PleiKu', 'code' => 'PXU', 'base_price' => 1050000],
-            ['sub_region_id' => $mienTrung->id, 'name' => 'Tuy Hòa', 'code' => 'TBB', 'base_price' => 1150000],
-            ['sub_region_id' => $mienTrung->id, 'name' => 'Thanh Hóa', 'code' => 'THD', 'base_price' => 900000],
-            ['sub_region_id' => $mienTrung->id, 'name' => 'Qui Nhơn', 'code' => 'UIH', 'base_price' => 1000000],
-            ['sub_region_id' => $mienTrung->id, 'name' => 'Chu Lai', 'code' => 'VCL', 'base_price' => 1050000],
-            ['sub_region_id' => $mienTrung->id, 'name' => 'Quảng Bình', 'code' => 'VDH', 'base_price' => 1100000],
-            ['sub_region_id' => $mienTrung->id, 'name' => 'Vinh', 'code' => 'VII', 'base_price' => 950000],
+            ['sub_region_id' => $mienTrung->id, 'name' => 'Ban Mê Thuột', 'code' => 'BMV', 'base_price' =>  980000, 'min_price' =>  880000, 'max_price' => 1900000],
+            ['sub_region_id' => $mienTrung->id, 'name' => 'Nha Trang',    'code' => 'CXR', 'base_price' => 1050000, 'min_price' =>  950000, 'max_price' => 2000000],
+            ['sub_region_id' => $mienTrung->id, 'name' => 'Đà Nẵng',      'code' => 'DAD', 'base_price' =>  950000, 'min_price' =>  850000, 'max_price' => 1800000],
+            ['sub_region_id' => $mienTrung->id, 'name' => 'Đà Lạt',       'code' => 'DLI', 'base_price' => 1100000, 'min_price' =>  980000, 'max_price' => 2100000],
+            ['sub_region_id' => $mienTrung->id, 'name' => 'Huế',           'code' => 'HUI', 'base_price' => 1000000, 'min_price' =>  900000, 'max_price' => 1950000],
+            ['sub_region_id' => $mienTrung->id, 'name' => 'PleiKu',        'code' => 'PXU', 'base_price' => 1050000, 'min_price' =>  950000, 'max_price' => 2000000],
+            ['sub_region_id' => $mienTrung->id, 'name' => 'Tuy Hòa',      'code' => 'TBB', 'base_price' => 1150000, 'min_price' => 1050000, 'max_price' => 2200000],
+            ['sub_region_id' => $mienTrung->id, 'name' => 'Thanh Hóa',    'code' => 'THD', 'base_price' =>  900000, 'min_price' =>  820000, 'max_price' => 1700000],
+            ['sub_region_id' => $mienTrung->id, 'name' => 'Qui Nhơn',     'code' => 'UIH', 'base_price' => 1000000, 'min_price' =>  900000, 'max_price' => 1950000],
+            ['sub_region_id' => $mienTrung->id, 'name' => 'Chu Lai',       'code' => 'VCL', 'base_price' => 1050000, 'min_price' =>  950000, 'max_price' => 2000000],
+            ['sub_region_id' => $mienTrung->id, 'name' => 'Quảng Bình',   'code' => 'VDH', 'base_price' => 1100000, 'min_price' =>  990000, 'max_price' => 2100000],
+            ['sub_region_id' => $mienTrung->id, 'name' => 'Vinh',          'code' => 'VII', 'base_price' =>  950000, 'min_price' =>  860000, 'max_price' => 1800000],
         ];
         foreach ($vnAirports as $ap) {
             Airport::firstOrCreate(['code' => $ap['code']], $ap);
         }
+
 
         // ========== Châu Á & Úc ==========
         $asia = Region::firstOrCreate(['name' => 'Châu Á & Úc'], ['sort' => 2]);

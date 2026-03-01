@@ -23,6 +23,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 
+    @livewireStyles
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <style>
         body {
@@ -60,7 +61,7 @@
         </div>
 
         <!-- Mobile Navigation -->
-        <div id="mobile-menu" class="hidden md:hidden absolute top-full left-0 w-full bg-primary/95 backdrop-blur-md border-t border-blue-700 shadow-xl">
+        <div id="mobile-menu" class="hidden md:hidden fixed top-[73px] left-0 w-full bg-primary/95 backdrop-blur-md border-t border-blue-700 shadow-xl z-40">
             <nav class="flex flex-col px-6 py-4 space-y-4 font-medium pb-6" aria-label="Mobile navigation">
                 <a class="hover:text-blue-200 transition block" href="{{ url('/') }}">Trang chủ</a>
                 <a class="hover:text-blue-200 transition block" href="{{ url('/schedule') }}">Chuyến bay</a>
@@ -153,13 +154,13 @@
             <img src="{{ asset('Icon_of_Zalo.svg.png') }}" class="w-full h-full object-contain" alt="Zalo Logo">
             <span class="absolute right-full mr-3 bg-white text-slate-800 text-xs font-bold px-3 py-1.5 rounded-lg shadow-md opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">Zalo</span>
         </a>
-        <a href="viber://chat?number=0981119692" target="_blank" rel="noopener noreferrer" aria-label="Chat Viber" class="w-12 h-12 bg-[#7360F2] rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-transform hover:shadow-xl relative group cursor-pointer border-2 border-white dark:border-slate-800">
+        <a href="https://viber.click/84981119692" target="_blank" rel="noopener noreferrer" aria-label="Chat Viber" class="w-12 h-12 bg-[#7360F2] rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-transform hover:shadow-xl relative group cursor-pointer border-2 border-white dark:border-slate-800">
             <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M19.336 10.605c.026-6.17-5.008-10.605-11.31-10.605C1.868 0 .093 4.312.093 10.222c0 2.545.926 4.982 2.658 6.865l-1.096 4.978 4.674-1.905c1.474.39 3.036.594 4.697.594 6.302 0 11.31-4.435 11.31-10.6050v.456z" />
             </svg>
             <span class="absolute right-full mr-3 bg-white text-slate-800 text-xs font-bold px-3 py-1.5 rounded-lg shadow-md opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">Viber</span>
         </a>
-        <a href="https://wa.me/0981119692" target="_blank" rel="noopener noreferrer" aria-label="Chat WhatsApp" class="w-12 h-12 bg-[#25D366] rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-transform hover:shadow-xl relative group cursor-pointer border-2 border-white dark:border-slate-800">
+        <a href="https://wa.me/84981119692" target="_blank" rel="noopener noreferrer" aria-label="Chat WhatsApp" class="w-12 h-12 bg-[#25D366] rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-transform hover:shadow-xl relative group cursor-pointer border-2 border-white dark:border-slate-800">
             <svg class="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M12.031 0A12 12 0 00.323 18.257L0 24l5.885-1.54A11.968 11.968 0 0012.031 24c6.626 0 12-5.372 12-12s-5.374-12-12-12zm6.653 17.202c-.302.847-1.749 1.616-2.42 1.685-.603.061-1.383.17-3.95-1.026-3.085-1.433-5.068-4.593-5.221-4.801-.153-.21-1.246-1.664-1.246-3.173 0-1.508.789-2.253 1.074-2.559.283-.306.618-.383.823-.383.204 0 .408.005.587.014.195.009.458-.076.716.549.273.66.93 2.274 1.011 2.438.082.162.137.352.034.557-.101.205-.152.33-.305.512-.152.18-.316.386-.45.549-.144.173-.302.366-.129.664.173.298.77 1.274 1.656 2.065 1.144 1.022 2.107 1.338 2.396 1.493.289.153.46.128.633-.06.173-.187.751-.873.953-1.173.203-.301.405-.251.67-.153.264.098 1.676.789 1.964.933.288.143.481.214.55.333.07.119.07.69-.232 1.537z" />
             </svg>
@@ -168,6 +169,7 @@
     </div>
 
     @stack('scripts')
+    @livewireScripts
 </body>
 
 </html>

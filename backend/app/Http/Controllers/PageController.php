@@ -16,7 +16,24 @@ class PageController extends Controller
         $regions = Region::with('subRegions.airports')->orderBy('sort')->get();
         $latestBlogs = Blog::where('is_published', true)->orderBy('published_at', 'desc')->take(3)->get();
 
-        return view('pages.home', compact('regions', 'latestBlogs'));
+        // Ưu đãi hot: airports có min_price, lấy 6 rẻ nhất
+        $hotDeals = \App\Models\Airport::whereNotNull('min_price')
+            ->where('min_price', '>', 0)
+            ->orderBy('min_price')
+            ->take(6)
+            ->get();
+
+        // Điểm đến phổ biến: airports Việt Nam, lấy 5 có base_price
+        $vnRegion = Region::where('name', 'Việt Nam')->first();
+        $popularRoutes = \App\Models\Airport::whereHas('subRegion', function ($q) use ($vnRegion) {
+            $q->where('region_id', $vnRegion?->id);
+        })
+            ->whereNotNull('base_price')
+            ->orderBy('base_price')
+            ->take(5)
+            ->get();
+
+        return view('pages.home', compact('regions', 'latestBlogs', 'hotDeals', 'popularRoutes'));
     }
 
     public function about()

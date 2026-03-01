@@ -6,86 +6,13 @@
 
 @section('content')
 
-<section class="relative h-[550px] w-full flex items-center justify-center overflow-hidden">
+<section class="relative h-auto min-h-[420px] w-full flex items-center justify-center overflow-hidden py-12">
     <img alt="Máy bay trên bầu trời xanh" class="absolute inset-0 w-full h-full object-cover brightness-75"
         src="https://lh3.googleusercontent.com/aida-public/AB6AXuDOUNqqqV_GMB7B85V3pW52tXW9MYMC-Y3rAm4KsxO72imzty5ThzU1oHd7-Y4VH41km7JLYWPHatLT3f8I34fdPfsiQ290GqgWEGIS-Sn0MtsdjxmqbjkfYwnGm5GfAY9UZtGkUm8dAgNgZUwAFj6NyWoUTEX6DExwtTyzXelPPizXZPIpc-GzKeyTUcmTwDTPsa6Tb8mfeBj24AxEgzIqUmw-SVTesqUcbutycPfAZEQEQg2GYrp2UML_rg6q78NsMoD8B1M1pD4" />
     <div class="absolute inset-0 bg-gradient-to-b from-primary/30 to-transparent"></div>
     <div class="relative z-10 w-full max-w-5xl px-6">
-        <div
-            class="bg-white/90 dark:bg-slate-800/90 backdrop-blur-md p-8 rounded-2xl shadow-2xl border border-white/20">
-            <div class="flex justify-center mb-6">
-                <div class="inline-flex p-1 bg-slate-200 dark:bg-slate-700 rounded-xl">
-                    <button
-                        class="px-6 py-2 rounded-lg text-sm font-semibold transition bg-white dark:bg-slate-600 shadow-sm">Khứ
-                        hồi</button>
-                    <button
-                        class="px-6 py-2 rounded-lg text-sm font-semibold transition hover:bg-white/50 dark:hover:bg-slate-600/50">Một
-                        chiều</button>
-                    <button
-                        class="px-6 py-2 rounded-lg text-sm font-semibold transition hover:bg-white/50 dark:hover:bg-slate-600/50">Nhiều
-                        chặng</button>
-                </div>
-            </div>
-            <form action="{{ url('/schedule') }}" method="GET" class="w-full">
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-                    <div class="relative">
-                        <label class="block text-xs font-bold text-slate-500 dark:text-slate-400 uppercase mb-1 ml-1">Điểm khởi hành</label>
-                        <div class="flex items-center border border-slate-300 dark:border-slate-600 rounded-xl p-3 bg-white dark:bg-slate-700">
-                            <span class="material-icons text-slate-400 mr-2">flight_takeoff</span>
-                            <select name="from" class="bg-transparent border-none focus:ring-0 w-full p-0 outline-none">
-                                @foreach($regions as $region)
-                                <optgroup label="{{ $region->name }}">
-                                    @foreach($region->subRegions as $sub)
-                                    @foreach($sub->airports as $ap)
-                                    <option value="{{ $ap->name }} ({{ $ap->code }})" {{ $ap->code == 'SGN' ? 'selected' : '' }}>{{ $ap->name }} ({{ $ap->code }})</option>
-                                    @endforeach
-                                    @endforeach
-                                </optgroup>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-                    <div class="relative">
-                        <label class="block text-xs font-bold text-slate-500 dark:text-slate-400 uppercase mb-1 ml-1">Điểm đến</label>
-                        <div class="flex items-center border border-slate-300 dark:border-slate-600 rounded-xl p-3 bg-white dark:bg-slate-700">
-                            <span class="material-icons text-slate-400 mr-2">flight_land</span>
-                            <select name="to" class="bg-transparent border-none focus:ring-0 w-full p-0 outline-none">
-                                @foreach($regions as $region)
-                                <optgroup label="{{ $region->name }}">
-                                    @foreach($region->subRegions as $sub)
-                                    @foreach($sub->airports as $ap)
-                                    <option value="{{ $ap->name }} ({{ $ap->code }})" {{ $ap->code == 'HAN' ? 'selected' : '' }}>{{ $ap->name }} ({{ $ap->code }})</option>
-                                    @endforeach
-                                    @endforeach
-                                </optgroup>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-                    <div class="relative">
-                        <label class="block text-xs font-bold text-slate-500 dark:text-slate-400 uppercase mb-1 ml-1">Ngày đi - Ngày về</label>
-                        <div class="flex items-center border border-slate-300 dark:border-slate-600 rounded-xl p-3 bg-white dark:bg-slate-700">
-                            <span class="material-icons text-slate-400 mr-2">calendar_today</span>
-                            <input name="date" class="bg-transparent border-none focus:ring-0 w-full p-0" placeholder="25/12/2023 - 30/12/2023" value="25/12/2023 - 30/12/2023" type="text" />
-                        </div>
-                    </div>
-                    <div class="relative">
-                        <label class="block text-xs font-bold text-slate-500 dark:text-slate-400 uppercase mb-1 ml-1">Số hành khách</label>
-                        <div class="flex items-center border border-slate-300 dark:border-slate-600 rounded-xl p-3 bg-white dark:bg-slate-700">
-                            <span class="material-icons text-slate-400 mr-2">group</span>
-                            <select name="passengers" class="bg-transparent border-none focus:ring-0 w-full p-0 outline-none">
-                                <option value="1 người lớn, Phổ thông">1 người lớn, Phổ thông</option>
-                                <option value="2 người lớn, Phổ thông">2 người lớn, Phổ thông</option>
-                                <option value="1 người lớn, Thương gia">1 người lớn, Thương gia</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                <button type="submit" class="w-full bg-primary hover:bg-blue-700 text-white font-bold py-4 rounded-xl shadow-lg flex items-center justify-center space-x-2 transition-all transform hover:scale-[1.01] active:scale-95">
-                    <span class="material-icons">search</span>
-                    <span>Tìm kiếm chuyến bay</span>
-                </button>
-            </form>
+        <div class="bg-white/90 dark:bg-slate-800/90 backdrop-blur-md p-6 md:p-8 md:my-0 my-3 rounded-2xl shadow-2xl border border-white/20">
+            <livewire:flight-search />
         </div>
     </div>
 </section>
@@ -93,141 +20,72 @@
     <section>
         <div class="flex justify-between items-end mb-8">
             <div>
-                <h2 class="text-3xl font-bold">Ưu đãi hot</h2>
-                <p class="text-slate-500 dark:text-slate-400">Những khuyến mại hấp dẫn nhất dành riêng cho bạn
-                </p>
+                <h2 class="text-3xl font-bold">Vé giá tốt</h2>
+                <p class="text-slate-500 dark:text-slate-400">Những vé máy bay giá tốt nhất từ cơ sở dữ liệu của chúng tôi</p>
             </div>
-            <a class="text-primary font-semibold flex items-center hover:underline" href="#">
-                Xem tất cả <span class="material-icons text-sm ml-1">arrow_forward</span>
+            <a class="text-primary font-semibold flex items-center hover:underline" href="{{ url('/schedule') }}">
+                Xem chuyến bay <span class="material-icons text-sm ml-1">arrow_forward</span>
             </a>
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div
-                class="group bg-white dark:bg-slate-800 rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all">
-                <div class="relative h-48 overflow-hidden">
-                    <img alt="Tokyo"
-                        class="w-full h-full object-cover group-hover:scale-110 transition duration-500"
-                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuAlLCv4lf1vHa-1-tiuUVzKqi2jZxuiGOsRYNay4fRVG6lNeK5yrjSydMMqhTvAKSOR5BzCEdhdpQ-mhXamZyO7Ma0LmuR1_rWG-FtxRkiWHNh8kiWubDPhTe9pqfbV63jbDBfC9BEVBTwM7lnWZpn_HjSdhk_7_h9VSJ2KhASjJQD1S67XuNZaTTZKlhCNAklG25-IN8fFWaucg1uLjcksOHd4bx_5jEJ8dxMr6zaehVayH8BJFttY3FRWzaTfWKpCzDgT6r5pGqc" />
-                    <div
-                        class="absolute top-4 left-4 bg-orange-500 text-white px-3 py-1 rounded-full text-xs font-bold uppercase">
-                        Giảm 20%</div>
-                </div>
-                <div class="p-6">
-                    <h3 class="text-xl font-bold mb-1">Tokyo, Nhật Bản</h3>
-                    <p class="text-slate-500 text-sm mb-4">Hành trình 5 ngày khám phá văn hóa</p>
-                    <div class="flex justify-between items-center">
-                        <div>
-                            <span class="text-slate-400 text-sm line-through">12.500.000đ</span>
-                            <div class="text-primary text-xl font-bold">9.900.000đ</div>
-                        </div>
-                        <button
-                            class="bg-blue-50 text-primary dark:bg-blue-900/30 dark:text-blue-300 px-4 py-2 rounded-lg font-semibold hover:bg-primary hover:text-white transition">Chi
-                            tiết</button>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+            @forelse($hotDeals as $deal)
+            <a href="{{ url('/schedule?to=' . urlencode($deal->name . ' (' . $deal->code . ')' )) }}"
+                class="group bg-white dark:bg-slate-800 rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all block">
+                <div class="relative h-44 overflow-hidden bg-gradient-to-br from-blue-500 to-indigo-700 flex items-center justify-center">
+                    <span class="material-icons text-white text-7xl opacity-20 group-hover:opacity-30 transition">flight</span>
+                    <div class="absolute inset-0 flex flex-col items-center justify-center text-white p-4">
+                        <span class="text-4xl font-extrabold tracking-widest">{{ $deal->code }}</span>
+                        <span class="text-sm font-medium mt-1 opacity-80">{{ $deal->subRegion->region->name ?? '' }}</span>
+                    </div>
+                    <div class="absolute top-3 left-3 bg-orange-500 text-white px-2.5 py-1 rounded-full text-xs font-bold uppercase">
+                        Giá tốt
                     </div>
                 </div>
-            </div>
-            <div
-                class="group bg-white dark:bg-slate-800 rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all">
-                <div class="relative h-48 overflow-hidden">
-                    <img alt="Bangkok"
-                        class="w-full h-full object-cover group-hover:scale-110 transition duration-500"
-                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuC1vWCqa2CL8p7NMyOpR--Njmp8wXqWcCk1Vnu4brPLSkeyYOSb263fHC-hM0zWtBoUDHu9byQjv6b8O_YZILXEEif9cq6hCYZu9qmfcVoVMRar3Bih4vzjjo4voeAM0rOHe2OUZSFrM3OXRD5O3G9VJhgWHhw6XqaSlaYqvENcGrwWtSPwP-VOnfR7NNyY7arbNghr8BkiP3qbPp95hmVcqlXZOwJCFsn0AESc-hKNfvqi_ifwRM4PS_6Y2WNqoiIacusaG-aLxAQ" />
-                    <div
-                        class="absolute top-4 left-4 bg-orange-500 text-white px-3 py-1 rounded-full text-xs font-bold uppercase">
-                        Giá sốc</div>
-                </div>
-                <div class="p-6">
-                    <h3 class="text-xl font-bold mb-1">Bangkok, Thái Lan</h3>
-                    <p class="text-slate-500 text-sm mb-4">Nghỉ dưỡng cuối tuần tại Bangkok</p>
+                <div class="p-5">
+                    <h3 class="text-lg font-bold mb-1">{{ $deal->name }}</h3>
+                    <p class="text-slate-400 text-xs mb-4">Mã sân bay: {{ $deal->code }}</p>
                     <div class="flex justify-between items-center">
                         <div>
-                            <span class="text-slate-400 text-sm line-through">4.500.000đ</span>
-                            <div class="text-primary text-xl font-bold">3.200.000đ</div>
+                            <div class="text-xs text-slate-400 mb-0.5">Giá chỉ từ</div>
+                            <div class="text-primary text-xl font-bold">{{ number_format($deal->min_price, 0, ',', '.') }}đ</div>
                         </div>
-                        <button
-                            class="bg-blue-50 text-primary dark:bg-blue-900/30 dark:text-blue-300 px-4 py-2 rounded-lg font-semibold hover:bg-primary hover:text-white transition">Chi
-                            tiết</button>
+                        <span class="bg-blue-50 text-primary dark:bg-blue-900/30 dark:text-blue-300 px-4 py-2 rounded-lg font-semibold text-sm group-hover:bg-primary group-hover:text-white transition">
+                            Đặt ngay
+                        </span>
                     </div>
                 </div>
-            </div>
-            <div
-                class="group bg-white dark:bg-slate-800 rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all">
-                <div class="relative h-48 overflow-hidden">
-                    <img alt="Singapore"
-                        class="w-full h-full object-cover group-hover:scale-110 transition duration-500"
-                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuBbHS2HMbap4vW6GfyDJLywyqdEf3Q-TxYc_kQEBQRXNNmxPJKVJfmsATlJlfz6IQWfkPsV2iVVppNRYKOlgm9L5aPbzoz-fYg5lJbqW8xTYGa5i82eYhhwmpKx1-aG-fsgZRRxCpaxLKePklElmaWaqUnQMvPk4b3braUqxYUbq3ul2hLCnC4dC-PQ4OWMoTQGXeFlbO2ZL2Rp92nkVsyug86WC-yYNdAdMyxsPXttfu3crTJhwpzaAdEKT0M_8eu2QyfnEEdLAss" />
-                </div>
-                <div class="p-6">
-                    <h3 class="text-xl font-bold mb-1">Singapore</h3>
-                    <p class="text-slate-500 text-sm mb-4">Khám phá đảo quốc sư tử</p>
-                    <div class="flex justify-between items-center">
-                        <div>
-                            <span class="text-slate-400 text-sm line-through">6.800.000đ</span>
-                            <div class="text-primary text-xl font-bold">5.500.000đ</div>
-                        </div>
-                        <button
-                            class="bg-blue-50 text-primary dark:bg-blue-900/30 dark:text-blue-300 px-4 py-2 rounded-lg font-semibold hover:bg-primary hover:text-white transition">Chi
-                            tiết</button>
-                    </div>
-                </div>
-            </div>
+            </a>
+            @empty
+            <p class="col-span-3 text-slate-400 text-center py-8">Chưa có dữ liệu ưu đãi. Hãy thêm giá khoảng cho sân bay trong trang quản trị.</p>
+            @endforelse
         </div>
     </section>
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
         <div class="lg:col-span-2">
-            <h2 class="text-2xl font-bold mb-6">Điểm đến phổ biến</h2>
-            <div class="space-y-4">
-                <div
-                    class="bg-white dark:bg-slate-800 p-5 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700 flex items-center justify-between hover:border-primary transition">
-                    <div class="flex items-center space-x-6">
-                        <div class="bg-blue-100 dark:bg-blue-900/40 p-3 rounded-full text-primary">
+            <h2 class="text-2xl font-bold mb-6">Điểm đến phổ biến tại Việt Nam</h2>
+            <div class="space-y-3">
+                @forelse($popularRoutes as $route)
+                <a href="{{ url('/schedule?to=' . urlencode($route->name . ' (' . $route->code . ')')) }}"
+                    class="bg-white dark:bg-slate-800 p-5 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700 flex items-center justify-between hover:border-primary hover:shadow-md transition group block">
+                    <div class="flex items-center space-x-4">
+                        <div class="bg-blue-100 dark:bg-blue-900/40 p-3 rounded-full text-primary shrink-0">
                             <span class="material-icons">flight_takeoff</span>
                         </div>
                         <div>
-                            <div class="font-bold text-lg">Hà Nội <span
-                                    class="material-icons text-sm align-middle mx-2 text-slate-400">arrow_forward</span>
-                                TP. Hồ Chí Minh</div>
-                            <div class="text-slate-500 text-sm">Chỉ từ 890.000đ/chiều</div>
+                            <div class="font-bold text-lg flex items-center gap-2">
+                                {{ $route->name }}
+                                <span class="text-xs font-bold bg-slate-100 dark:bg-slate-700 text-slate-500 px-2 py-0.5 rounded">{{ $route->code }}</span>
+                            </div>
+                            <div class="text-slate-500 text-sm">Chỉ từ <strong class="text-primary">{{ number_format($route->base_price, 0, ',', '.') }}đ</strong>/chiều</div>
                         </div>
                     </div>
-                    <button
-                        class="border border-primary text-primary px-6 py-2 rounded-xl font-bold hover:bg-primary hover:text-white transition">Đặt
-                        ngay</button>
-                </div>
-                <div
-                    class="bg-white dark:bg-slate-800 p-5 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700 flex items-center justify-between hover:border-primary transition">
-                    <div class="flex items-center space-x-6">
-                        <div class="bg-blue-100 dark:bg-blue-900/40 p-3 rounded-full text-primary">
-                            <span class="material-icons">flight_takeoff</span>
-                        </div>
-                        <div>
-                            <div class="font-bold text-lg">Đà Nẵng <span
-                                    class="material-icons text-sm align-middle mx-2 text-slate-400">arrow_forward</span>
-                                Seoul (Hàn Quốc)</div>
-                            <div class="text-slate-500 text-sm">Chỉ từ 3.200.000đ/chiều</div>
-                        </div>
-                    </div>
-                    <button
-                        class="border border-primary text-primary px-6 py-2 rounded-xl font-bold hover:bg-primary hover:text-white transition">Đặt
-                        ngay</button>
-                </div>
-                <div
-                    class="bg-white dark:bg-slate-800 p-5 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700 flex items-center justify-between hover:border-primary transition">
-                    <div class="flex items-center space-x-6">
-                        <div class="bg-blue-100 dark:bg-blue-900/40 p-3 rounded-full text-primary">
-                            <span class="material-icons">flight_takeoff</span>
-                        </div>
-                        <div>
-                            <div class="font-bold text-lg">Nha Trang <span
-                                    class="material-icons text-sm align-middle mx-2 text-slate-400">arrow_forward</span>
-                                Đài Bắc</div>
-                            <div class="text-slate-500 text-sm">Chỉ từ 4.500.000đ/chiều</div>
-                        </div>
-                    </div>
-                    <button
-                        class="border border-primary text-primary px-6 py-2 rounded-xl font-bold hover:bg-primary hover:text-white transition">Đặt
-                        ngay</button>
-                </div>
+                    <span class="border border-primary text-primary px-5 py-2 rounded-xl font-bold group-hover:bg-primary group-hover:text-white transition text-sm shrink-0">
+                        Đặt ngay
+                    </span>
+                </a>
+                @empty
+                <p class="text-slate-400 py-4">Chưa có dữ liệu tuyến bay.</p>
+                @endforelse
             </div>
         </div>
         <div>
@@ -359,6 +217,95 @@
                 Xem thêm FAQ từ Vietnam Airlines <span class="material-icons text-sm ml-2">open_in_new</span>
             </a>
         </div>
+    </div>
+</section>
+
+{{-- Airline Partners Section --}}
+<section class="py-16 bg-white dark:bg-slate-900 border-t border-slate-100 dark:border-slate-800 overflow-hidden">
+    <div class="container mx-auto px-6 mb-10 text-center max-w-3xl">
+        <h2 class="text-3xl font-bold mb-4">Đối tác hãng bay & khách sạn!</h2>
+        <p class="text-slate-600 dark:text-slate-400 leading-relaxed">
+            Easybooking tự hào kết nối API trực tiếp với các hãng hàng không nội địa, hãng quốc tế đến Việt Nam và hơn 900 hãng trên toàn thế giới.
+        </p>
+    </div>
+
+    @php
+    $airlines = [
+    ['iata' => 'VN', 'name' => 'Vietnam Airlines'],
+    ['iata' => 'VJ', 'name' => 'Vietjet Air'],
+    ['iata' => 'QH', 'name' => 'Bamboo Airways'],
+    ['iata' => 'VU', 'name' => 'Vietravel Airlines'],
+    ['iata' => 'KE', 'name' => 'Korean Air'],
+    ['iata' => 'OZ', 'name' => 'Asiana Airlines'],
+    ['iata' => 'PG', 'name' => 'Bangkok Airways'],
+    ['iata' => 'CX', 'name' => 'Cathay Pacific'],
+    ['iata' => 'CI', 'name' => 'China Airlines'],
+    ['iata' => 'CZ', 'name' => 'China Southern'],
+    ['iata' => 'EK', 'name' => 'Emirates'],
+    ['iata' => 'EY', 'name' => 'Etihad'],
+    ['iata' => 'JL', 'name' => 'Japan Airlines'],
+    ['iata' => 'QR', 'name' => 'Qatar Airways'],
+    ['iata' => 'SQ', 'name' => 'Singapore Airlines'],
+    ['iata' => 'TG', 'name' => 'Thai Airways'],
+    ['iata' => 'TK', 'name' => 'Turkish Airlines'],
+    ['iata' => 'UA', 'name' => 'United Airlines'],
+    ['iata' => 'AF', 'name' => 'Air France'],
+    ['iata' => 'NZ', 'name' => 'Air New Zealand'],
+    ['iata' => 'NH', 'name' => 'All Nippon Airways'],
+    ['iata' => 'AA', 'name' => 'American Airlines'],
+    ['iata' => 'BR', 'name' => 'Eva Air'],
+    ['iata' => 'QF', 'name' => 'Qantas'],
+    ['iata' => 'DL', 'name' => 'Delta Airlines'],
+    ['iata' => 'MH', 'name' => 'Malaysia Airlines'],
+    ['iata' => 'AK', 'name' => 'AirAsia'],
+    ['iata' => 'JQ', 'name' => 'Jetstar'],
+    ['iata' => 'LY', 'name' => 'El Al Israel Airlines'],
+    ['iata' => 'B7', 'name' => 'UNI AIR'],
+    ['iata' => 'MK', 'name' => 'Air Mauritius'],
+    ['iata' => 'NX', 'name' => 'Air Macau'],
+    ['iata' => 'AC', 'name' => 'Air Canada'],
+    ];
+    @endphp
+
+    <style>
+        @keyframes scroll {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(calc(-100% / 2));
+            }
+        }
+
+        .animate-scroll {
+            animation: scroll 40s linear infinite;
+            display: flex;
+            width: max-content;
+        }
+
+        .animate-scroll:hover {
+            animation-play-state: paused;
+        }
+    </style>
+
+    <div class="relative max-w-[100vw] overflow-hidden group">
+        <div class="animate-scroll items-center gap-8 px-4">
+            {{-- Loop twice for infinite scroll effect --}}
+            @for($i=0; $i<2; $i++)
+                @foreach($airlines as $airline)
+                <div class="flex flex-col items-center justify-center w-[120px] grayscale hover:grayscale-0 transition-all duration-300 opacity-70 hover:opacity-100 cursor-pointer shrink-0">
+                <div class="h-16 w-16 mb-3 bg-slate-50 dark:bg-slate-800 rounded-full flex items-center justify-center p-2 shadow-sm border border-slate-100 dark:border-slate-700">
+                    <img src="https://images.kiwi.com/airlines/64/{{ $airline['iata'] }}.png" alt="{{ $airline['name'] }}" class="max-w-full max-h-full object-contain">
+                </div>
+                <span class="text-[11px] font-bold text-slate-500 uppercase tracking-wider text-center line-clamp-2 leading-tight w-full">{{ $airline['name'] }}</span>
+        </div>
+        @endforeach
+        @endfor
+    </div>
+    {{-- Gradients for smooth edges --}}
+    <div class="absolute top-0 left-0 bottom-0 w-24 bg-gradient-to-r from-white dark:from-slate-900 to-transparent z-10 pointer-events-none"></div>
+    <div class="absolute top-0 right-0 bottom-0 w-24 bg-gradient-to-l from-white dark:from-slate-900 to-transparent z-10 pointer-events-none"></div>
     </div>
 </section>
 
