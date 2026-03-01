@@ -1,8 +1,10 @@
 <div>
+    @teleport('body')
     {{-- Overlay backdrop --}}
     @if($showFromModal || $showToModal || $showPassengerModal || $showDateModal || $showReturnModal)
-    <div class="fixed inset-0 bg-black/40 z-40" wire:click="closeModals"></div>
+    <div class="fixed inset-0 bg-black/60 z-[9990]" wire:click="closeModals"></div>
     @endif
+    @endteleport
 
     {{-- Flight type tabs --}}
     <div class="flex justify-center mb-6">
@@ -76,10 +78,13 @@
                     </span>
                 </button>
                 <input type="hidden" name="date" value="{{ $date }}">
+            </div>
 
-                {{-- Departure calendar dropdown --}}
-                @if($showDateModal)
-                <div class="absolute top-full left-0 mt-1 z-30 bg-white dark:bg-slate-800 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-700 w-72">
+            @teleport('body')
+            {{-- Departure calendar modal (fixed, centered) --}}
+            @if($showDateModal)
+            <div class="fixed inset-0 z-[9999] flex items-center justify-center px-4">
+                <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-2xl w-full max-w-xs overflow-hidden">
                     <div class="flex items-center justify-between px-4 py-3 border-b border-slate-100 dark:border-slate-700">
                         <button wire:click="prevCalendarMonth" type="button" class="p-1 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg">
                             <span class="material-icons text-base">chevron_left</span>
@@ -90,13 +95,11 @@
                         </button>
                     </div>
                     <div class="p-3">
-                        {{-- Day headers --}}
                         <div style="display:grid;grid-template-columns:repeat(7,minmax(0,1fr));" class="mb-1">
                             @foreach(['T2','T3','T4','T5','T6','T7','CN'] as $h)
                             <div class="text-center py-1" style="font-size:10px;font-weight:700;color:{{ $h==='CN' ? '#ef4444' : '#94a3b8' }}">{{ $h }}</div>
                             @endforeach
                         </div>
-                        {{-- Days --}}
                         <div style="display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:2px 0;">
                             @foreach($calendarDays as $cell)
                             @if($cell === null)
@@ -106,7 +109,7 @@
                                 type="button"
                                 wire:click="selectDate('{{ $cell['date'] }}')"
                                 @if($cell['past']) disabled @endif
-                                style="display:flex;flex-direction:column;align-items:center;padding:4px 2px;border-radius:8px;cursor:{{ $cell['past'] ? 'not-allowed' : 'pointer' }};opacity:{{ $cell['past'] ? '0.3' : '1' }};background:{{ $date===$cell['date'] ? 'var(--color-primary, #2563eb)' : 'transparent' }};color:{{ $date===$cell['date'] ? '#fff' : ($cell['dow']==0 ? '#ef4444' : 'inherit') }};"
+                                style="display:flex;flex-direction:column;align-items:center;padding:4px 2px;border-radius:8px;cursor:{{ $cell['past'] ? 'not-allowed' : 'pointer' }};opacity:{{ $cell['past'] ? '0.3' : '1' }};background:{{ $date===$cell['date'] ? '#2563eb' : 'transparent' }};color:{{ $date===$cell['date'] ? '#fff' : ($cell['dow']==0 ? '#ef4444' : 'inherit') }};"
                                 class="hover:bg-blue-50 dark:hover:bg-slate-700 transition">
                                 <span style="font-size:12px;font-weight:700;line-height:1;">{{ $cell['day'] }}</span>
                                 @if($cell['price'])
@@ -120,8 +123,9 @@
                         </div>
                     </div>
                 </div>
-                @endif
             </div>
+            @endif
+            @endteleport
 
             {{-- Return Date (roundtrip only) --}}
             @if($tripType === 'roundtrip')
@@ -135,10 +139,14 @@
                     </span>
                 </button>
                 <input type="hidden" name="return_date" value="{{ $returnDate }}">
+            </div>
+            @endif
 
-                {{-- Return calendar dropdown --}}
-                @if($showReturnModal)
-                <div class="absolute top-full left-0 mt-1 z-30 bg-white dark:bg-slate-800 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-700 w-72">
+            @teleport('body')
+            {{-- Return calendar modal (fixed, centered) --}}
+            @if($showReturnModal)
+            <div class="fixed inset-0 z-[9999] flex items-center justify-center px-4">
+                <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-2xl w-full max-w-xs overflow-hidden">
                     <div class="flex items-center justify-between px-4 py-3 border-b border-slate-100 dark:border-slate-700">
                         <button wire:click="prevReturnMonth" type="button" class="p-1 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg">
                             <span class="material-icons text-base">chevron_left</span>
@@ -163,7 +171,7 @@
                                 type="button"
                                 wire:click="selectReturnDate('{{ $cell['date'] }}')"
                                 @if($cell['past']) disabled @endif
-                                style="display:flex;flex-direction:column;align-items:center;padding:4px 2px;border-radius:8px;cursor:{{ $cell['past'] ? 'not-allowed' : 'pointer' }};opacity:{{ $cell['past'] ? '0.3' : '1' }};background:{{ $returnDate===$cell['date'] ? 'var(--color-primary, #2563eb)' : 'transparent' }};color:{{ $returnDate===$cell['date'] ? '#fff' : ($cell['dow']==0 ? '#ef4444' : 'inherit') }};"
+                                style="display:flex;flex-direction:column;align-items:center;padding:4px 2px;border-radius:8px;cursor:{{ $cell['past'] ? 'not-allowed' : 'pointer' }};opacity:{{ $cell['past'] ? '0.3' : '1' }};background:{{ $returnDate===$cell['date'] ? '#2563eb' : 'transparent' }};color:{{ $returnDate===$cell['date'] ? '#fff' : ($cell['dow']==0 ? '#ef4444' : 'inherit') }};"
                                 class="hover:bg-blue-50 dark:hover:bg-slate-700 transition">
                                 <span style="font-size:12px;font-weight:700;line-height:1;">{{ $cell['day'] }}</span>
                                 @if($cell['price'])
@@ -177,9 +185,9 @@
                         </div>
                     </div>
                 </div>
-                @endif
             </div>
             @endif
+            @endteleport
 
             {{-- Passengers --}}
             <div class="flex-1 min-w-0">
@@ -191,7 +199,7 @@
                 </button>
             </div>
         </div>
-aa
+
         <button type="submit"
             class="w-full bg-primary hover:bg-blue-700 text-white font-bold py-4 rounded-xl shadow-lg flex items-center justify-center space-x-2 transition-all transform hover:scale-[1.01] active:scale-95">
             <span class="material-icons">search</span>
@@ -200,9 +208,10 @@ aa
     </form>
 
 
+    @teleport('body')
     {{-- ======== FROM MODAL ======== --}}
     @if($showFromModal)
-    <div class="fixed inset-0 z-50 flex items-start justify-center pt-4 px-3 overflow-y-auto">
+    <div class="fixed inset-0 z-[9999] flex items-start justify-center pt-4 px-3 overflow-y-auto">
         <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-2xl w-full max-w-2xl max-h-[85vh] overflow-hidden flex flex-col my-4">
             <div class="flex items-center justify-between p-4 border-b border-slate-100 dark:border-slate-700 shrink-0">
                 <h2 class="font-bold text-lg">Chọn điểm khởi hành</h2>
@@ -286,9 +295,12 @@ aa
     </div>
     @endif
 
+    @endteleport
+
+    @teleport('body')
     {{-- ======== TO MODAL ======== --}}
     @if($showToModal)
-    <div class="fixed inset-0 z-50 flex items-start justify-center pt-4 px-3 overflow-y-auto">
+    <div class="fixed inset-0 z-[9999] flex items-start justify-center pt-4 px-3 overflow-y-auto">
         <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-2xl w-full max-w-2xl max-h-[85vh] overflow-hidden flex flex-col my-4">
             <div class="flex items-center justify-between p-4 border-b border-slate-100 dark:border-slate-700 shrink-0">
                 <h2 class="font-bold text-lg">Chọn điểm đến</h2>
@@ -369,9 +381,12 @@ aa
     </div>
     @endif
 
+    @endteleport
+
+    @teleport('body')
     {{-- ======== PASSENGER MODAL ======== --}}
     @if($showPassengerModal)
-    <div class="fixed inset-0 z-50 flex items-start justify-center pt-6 px-4">
+    <div class="fixed inset-0 z-[9999] flex items-center justify-center px-4">
         <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-2xl w-full max-w-sm overflow-hidden">
             <div class="flex items-center justify-between p-4 border-b border-slate-100 dark:border-slate-700">
                 <h2 class="font-bold text-lg">Hành khách & Hạng ghế</h2>
@@ -443,4 +458,5 @@ aa
         </div>
     </div>
     @endif
+    @endteleport
 </div>

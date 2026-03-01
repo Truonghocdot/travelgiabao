@@ -52,10 +52,16 @@
                 <a class="hover:text-blue-200 transition {{ request()->is('contact*') ? 'border-b-2 border-white pb-1 font-bold' : '' }}" href="{{ url('/contact') }}">Liên hệ</a>
             </nav>
 
-            <div class="flex items-center space-x-4 z-50 relative">
+            <div class="flex items-center space-x-2 z-50 relative">
                 <button class="p-2 rounded-full hover:bg-blue-600 transition"
                     onclick="document.documentElement.classList.toggle('dark')" title="Chế độ tối" aria-label="Chuyển chế độ sáng/tối">
                     <span class="material-icons">dark_mode</span>
+                </button>
+                {{-- Hamburger button (mobile only) --}}
+                <button id="mobile-menu-btn"
+                    class="md:hidden p-2 rounded-full hover:bg-blue-600 transition"
+                    aria-label="Mở menu" aria-expanded="false">
+                    <span class="material-icons">menu</span>
                 </button>
             </div>
         </div>
