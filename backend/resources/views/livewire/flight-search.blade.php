@@ -1,6 +1,6 @@
 <div>
     {{-- Overlay backdrop --}}
-    @if($showFromModal || $showToModal || $showPassengerModal)
+    @if($showFromModal || $showToModal || $showPassengerModal || $showDateModal || $showReturnModal)
     <div class="fixed inset-0 bg-black/40 z-40" wire:click="closeModals"></div>
     @endif
 
@@ -68,26 +68,28 @@
             {{-- Departure Date --}}
             <div class="flex-1 min-w-0">
                 <label class="block text-xs font-bold text-slate-500 dark:text-slate-400 uppercase mb-1 ml-1">Ngày đi</label>
-                <div class="flex items-center border border-slate-300 dark:border-slate-600 rounded-xl px-3 py-3 bg-white dark:bg-slate-700">
-                    <span class="material-icons text-slate-400 mr-2 shrink-0 text-lg">calendar_today</span>
-                    <input name="date" wire:model="date"
-                        class="bg-transparent border-none focus:ring-0 w-full p-0 text-sm text-slate-800 dark:text-white"
-                        type="date"
-                        min="{{ now()->format('Y-m-d') }}" />
-                </div>
+                <button type="button" wire:click="openDateModal"
+                    class="w-full flex items-center gap-2 border border-slate-300 dark:border-slate-600 rounded-xl p-3 bg-white dark:bg-slate-700 hover:border-primary transition text-left">
+                    <span class="material-icons text-slate-400 shrink-0">calendar_today</span>
+                    <span class="text-sm text-slate-800 dark:text-white flex-1">
+                        {{ $date ?: 'Chọn ngày đi' }}
+                    </span>
+                </button>
+                <input type="hidden" name="date" value="{{ $date }}">
             </div>
 
             {{-- Return Date (roundtrip only) --}}
             @if($tripType === 'roundtrip')
             <div class="flex-1 min-w-0">
                 <label class="block text-xs font-bold text-slate-500 dark:text-slate-400 uppercase mb-1 ml-1">Ngày về</label>
-                <div class="flex items-center border border-slate-300 dark:border-slate-600 rounded-xl px-3 py-3 bg-white dark:bg-slate-700">
-                    <span class="material-icons text-slate-400 mr-2 shrink-0 text-lg">event_available</span>
-                    <input name="return_date" wire:model="returnDate"
-                        class="bg-transparent border-none focus:ring-0 w-full p-0 text-sm text-slate-800 dark:text-white"
-                        type="date"
-                        min="{{ now()->format('Y-m-d') }}" />
-                </div>
+                <button type="button" wire:click="openReturnModal"
+                    class="w-full flex items-center gap-2 border border-slate-300 dark:border-slate-600 rounded-xl p-3 bg-white dark:bg-slate-700 hover:border-primary transition text-left">
+                    <span class="material-icons text-slate-400 shrink-0">event_available</span>
+                    <span class="text-sm text-slate-800 dark:text-white flex-1">
+                        {{ $returnDate ?: 'Chọn ngày về' }}
+                    </span>
+                </button>
+                <input type="hidden" name="return_date" value="{{ $returnDate }}">
             </div>
             @endif
 
@@ -108,6 +110,126 @@
             <span>Tìm kiếm chuyến bay</span>
         </button>
     </form>
+
+    {{-- ======== DEPARTURE DATE MODAL ======== --}}
+    @if($showDateModal)
+    <div class="fixed inset-0 z-50 flex items-center justify-center px-3">
+        <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-2xl w-full max-w-sm overflow-hidden">
+            <div class="flex items-center justify-between p-4 border-b border-slate-100 dark:border-slate-700">
+                <h2 class="font-bold text-base">Chọn ngày đi</h2>
+                <button wire:click="closeModals" class="p-1 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-full">
+                    <span class="material-icons">close</span>
+                </button>
+            </div>
+            <div class="p-4">
+                {{-- Month nav --}}
+                <div class="flex items-center justify-between mb-3">
+                    <button wire:click="prevCalendarMonth" class="p-2 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg">
+                        <span class="material-icons text-lg">chevron_left</span>
+                    </button>
+                    <span class="font-bold text-sm">
+                        Tháng {{ $calendarMonth }}/{{ $calendarYear }}
+                    </span>
+                    <button wire:click="nextCalendarMonth" class="p-2 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg">
+                        <span class="material-icons text-lg">chevron_right</span>
+                    </button>
+                </div>
+                {{-- Day headers --}}
+                <div class="grid grid-cols-7 mb-1">
+                    @foreach(['T2','T3','T4','T5','T6','T7','CN'] as $h)
+                    <div class="text-center text-[10px] font-bold {{ $h === 'CN' ? 'text-red-500' : 'text-slate-400' }} py-1">{{ $h }}</div>
+                    @endforeach
+                </div>
+                {{-- Calendar grid --}}
+                <div class="grid grid-cols-7 gap-y-1">
+                    @foreach($calendarDays as $cell)
+                    @if($cell === null)
+                    <div></div>
+                    @else
+                    <button
+                        type="button"
+                        wire:click="selectDate('{{ $cell['date'] }}')"
+                        @if($cell['past']) disabled @endif
+                        class="flex flex-col items-center py-1.5 rounded-lg text-center transition
+                            {{ $cell['past'] ? 'opacity-30 cursor-not-allowed' : 'hover:bg-blue-50 dark:hover:bg-slate-700 cursor-pointer' }}
+                            {{ $date === $cell['date'] ? 'bg-primary text-white hover:bg-primary' : '' }}
+                            {{ $cell['dow'] == 0 ? 'text-red-500' : '' }}
+                            {{ $cell['today'] && $date !== $cell['date'] ? 'border border-primary/50' : '' }}
+                        ">
+                        <span class="text-xs font-bold leading-none">{{ $cell['day'] }}</span>
+                        @if($cell['price'])
+                        <span class="text-[8px] font-medium leading-none mt-0.5 {{ $date === $cell['date'] ? 'text-white/90' : 'text-primary' }}">
+                            {{ number_format($cell['price']/1000, 0) }}K
+                        </span>
+                        @endif
+                    </button>
+                    @endif
+                    @endforeach
+                </div>
+            </div>
+        </div>
+    </div>
+    @endif
+
+    {{-- ======== RETURN DATE MODAL ======== --}}
+    @if($showReturnModal)
+    <div class="fixed inset-0 z-50 flex items-center justify-center px-3">
+        <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-2xl w-full max-w-sm overflow-hidden">
+            <div class="flex items-center justify-between p-4 border-b border-slate-100 dark:border-slate-700">
+                <h2 class="font-bold text-base">Chọn ngày về</h2>
+                <button wire:click="closeModals" class="p-1 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-full">
+                    <span class="material-icons">close</span>
+                </button>
+            </div>
+            <div class="p-4">
+                {{-- Month nav --}}
+                <div class="flex items-center justify-between mb-3">
+                    <button wire:click="prevReturnMonth" class="p-2 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg">
+                        <span class="material-icons text-lg">chevron_left</span>
+                    </button>
+                    <span class="font-bold text-sm">
+                        Tháng {{ $returnCalendarMonth }}/{{ $returnCalendarYear }}
+                    </span>
+                    <button wire:click="nextReturnMonth" class="p-2 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg">
+                        <span class="material-icons text-lg">chevron_right</span>
+                    </button>
+                </div>
+                {{-- Day headers --}}
+                <div class="grid grid-cols-7 mb-1">
+                    @foreach(['T2','T3','T4','T5','T6','T7','CN'] as $h)
+                    <div class="text-center text-[10px] font-bold {{ $h === 'CN' ? 'text-red-500' : 'text-slate-400' }} py-1">{{ $h }}</div>
+                    @endforeach
+                </div>
+                {{-- Calendar grid --}}
+                <div class="grid grid-cols-7 gap-y-1">
+                    @foreach($returnDays as $cell)
+                    @if($cell === null)
+                    <div></div>
+                    @else
+                    <button
+                        type="button"
+                        wire:click="selectReturnDate('{{ $cell['date'] }}')"
+                        @if($cell['past']) disabled @endif
+                        class="flex flex-col items-center py-1.5 rounded-lg text-center transition
+                            {{ $cell['past'] ? 'opacity-30 cursor-not-allowed' : 'hover:bg-blue-50 dark:hover:bg-slate-700 cursor-pointer' }}
+                            {{ $returnDate === $cell['date'] ? 'bg-primary text-white hover:bg-primary' : '' }}
+                            {{ $cell['dow'] == 0 ? 'text-red-500' : '' }}
+                            {{ $cell['today'] && $returnDate !== $cell['date'] ? 'border border-primary/50' : '' }}
+                        ">
+                        <span class="text-xs font-bold leading-none">{{ $cell['day'] }}</span>
+                        @if($cell['price'])
+                        <span class="text-[8px] font-medium leading-none mt-0.5 {{ $returnDate === $cell['date'] ? 'text-white/90' : 'text-primary' }}">
+                            {{ number_format($cell['price']/1000, 0) }}K
+                        </span>
+                        @endif
+                    </button>
+                    @endif
+                    @endforeach
+                </div>
+            </div>
+        </div>
+    </div>
+    @endif
 
     {{-- ======== FROM MODAL ======== --}}
     @if($showFromModal)
