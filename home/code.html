@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>giabaotravel - Tìm kiếm vé máy bay</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#1d4ed8",
+                        "background-light": "#f8fafc",
+                        "background-dark": "#0f172a",
+                    },
+                    fontFamily: {
+                        display: ["Inter", "sans-serif"],
+                    },
+                    borderRadius: {
+                        DEFAULT: "0.75rem",
+                    },
+                },
+            },
+        };
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+
+<body
+    class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 transition-colors duration-300">
+    <header class="bg-primary text-white py-4 shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <span class="material-icons text-3xl">flight_takeoff</span>
+                <span class="text-2xl font-bold tracking-tight">giabaotravel</span>
+            </div>
+            <nav class="hidden md:flex space-x-8 font-medium">
+                <a class="border-b-2 border-white pb-1" href="#">Chuyến bay</a>
+                <a class="hover:text-blue-200 transition" href="#">Khuyến mãi</a>
+                <a class="hover:text-blue-200 transition" href="#">Điểm đến</a>
+                <a class="hover:text-blue-200 transition" href="#">Trợ giúp</a>
+            </nav>
+            <div class="flex items-center space-x-4">
+                <button class="p-2 rounded-full hover:bg-blue-600 transition"
+                    onclick="document.documentElement.classList.toggle('dark')">
+                    <span class="material-icons">dark_mode</span>
+                </button>
+                <button
+                    class="bg-white text-primary px-5 py-2 rounded-full font-semibold flex items-center space-x-2 hover:bg-blue-50 transition shadow-md">
+                    <span class="material-icons text-sm">person</span>
+                    <span>Tài khoản</span>
+                </button>
+            </div>
+        </div>
+    </header>
+    <main>
+        <section class="relative h-[550px] w-full flex items-center justify-center overflow-hidden">
+            <img alt="Máy bay trên bầu trời xanh" class="absolute inset-0 w-full h-full object-cover brightness-75"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuDOUNqqqV_GMB7B85V3pW52tXW9MYMC-Y3rAm4KsxO72imzty5ThzU1oHd7-Y4VH41km7JLYWPHatLT3f8I34fdPfsiQ290GqgWEGIS-Sn0MtsdjxmqbjkfYwnGm5GfAY9UZtGkUm8dAgNgZUwAFj6NyWoUTEX6DExwtTyzXelPPizXZPIpc-GzKeyTUcmTwDTPsa6Tb8mfeBj24AxEgzIqUmw-SVTesqUcbutycPfAZEQEQg2GYrp2UML_rg6q78NsMoD8B1M1pD4" />
+            <div class="absolute inset-0 bg-gradient-to-b from-primary/30 to-transparent"></div>
+            <div class="relative z-10 w-full max-w-5xl px-6">
+                <div
+                    class="bg-white/90 dark:bg-slate-800/90 backdrop-blur-md p-8 rounded-2xl shadow-2xl border border-white/20">
+                    <div class="flex justify-center mb-6">
+                        <div class="inline-flex p-1 bg-slate-200 dark:bg-slate-700 rounded-xl">
+                            <button
+                                class="px-6 py-2 rounded-lg text-sm font-semibold transition bg-white dark:bg-slate-600 shadow-sm">Khứ
+                                hồi</button>
+                            <button
+                                class="px-6 py-2 rounded-lg text-sm font-semibold transition hover:bg-white/50 dark:hover:bg-slate-600/50">Một
+                                chiều</button>
+                            <button
+                                class="px-6 py-2 rounded-lg text-sm font-semibold transition hover:bg-white/50 dark:hover:bg-slate-600/50">Nhiều
+                                chặng</button>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+                        <div class="relative">
+                            <label
+                                class="block text-xs font-bold text-slate-500 dark:text-slate-400 uppercase mb-1 ml-1">Điểm
+                                khởi hành</label>
+                            <div
+                                class="flex items-center border border-slate-300 dark:border-slate-600 rounded-xl p-3 bg-white dark:bg-slate-700">
+                                <span class="material-icons text-slate-400 mr-2">flight_takeoff</span>
+                                <input class="bg-transparent border-none focus:ring-0 w-full p-0"
+                                    placeholder="Hà Nội (HAN)" type="text" />
+                            </div>
+                        </div>
+                        <div class="relative">
+                            <label
+                                class="block text-xs font-bold text-slate-500 dark:text-slate-400 uppercase mb-1 ml-1">Điểm
+                                đến</label>
+                            <div
+                                class="flex items-center border border-slate-300 dark:border-slate-600 rounded-xl p-3 bg-white dark:bg-slate-700">
+                                <span class="material-icons text-slate-400 mr-2">flight_land</span>
+                                <input class="bg-transparent border-none focus:ring-0 w-full p-0"
+                                    placeholder="Đà Nẵng (DAD)" type="text" />
+                            </div>
+                        </div>
+                        <div class="relative">
+                            <label
+                                class="block text-xs font-bold text-slate-500 dark:text-slate-400 uppercase mb-1 ml-1">Ngày
+                                đi - Ngày về</label>
+                            <div
+                                class="flex items-center border border-slate-300 dark:border-slate-600 rounded-xl p-3 bg-white dark:bg-slate-700">
+                                <span class="material-icons text-slate-400 mr-2">calendar_today</span>
+                                <input class="bg-transparent border-none focus:ring-0 w-full p-0"
+                                    placeholder="25/12/2023 - 30/12/2023" type="text" />
+                            </div>
+                        </div>
+                        <div class="relative">
+                            <label
+                                class="block text-xs font-bold text-slate-500 dark:text-slate-400 uppercase mb-1 ml-1">Số
+                                hành khách</label>
+                            <div
+                                class="flex items-center border border-slate-300 dark:border-slate-600 rounded-xl p-3 bg-white dark:bg-slate-700">
+                                <span class="material-icons text-slate-400 mr-2">group</span>
+                                <select class="bg-transparent border-none focus:ring-0 w-full p-0 appearance-none">
+                                    <option>1 người lớn, Phổ thông</option>
+                                    <option>2 người lớn, Phổ thông</option>
+                                    <option>1 người lớn, Thương gia</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <button
+                        class="w-full bg-primary hover:bg-blue-700 text-white font-bold py-4 rounded-xl shadow-lg flex items-center justify-center space-x-2 transition-all transform hover:scale-[1.01] active:scale-95">
+                        <span class="material-icons">search</span>
+                        <span>Tìm kiếm chuyến bay</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+        <div class="container mx-auto px-6 py-16 space-y-20">
+            <section>
+                <div class="flex justify-between items-end mb-8">
+                    <div>
+                        <h2 class="text-3xl font-bold">Ưu đãi hot</h2>
+                        <p class="text-slate-500 dark:text-slate-400">Những khuyến mại hấp dẫn nhất dành riêng cho bạn
+                        </p>
+                    </div>
+                    <a class="text-primary font-semibold flex items-center hover:underline" href="#">
+                        Xem tất cả <span class="material-icons text-sm ml-1">arrow_forward</span>
+                    </a>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div
+                        class="group bg-white dark:bg-slate-800 rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all">
+                        <div class="relative h-48 overflow-hidden">
+                            <img alt="Tokyo"
+                                class="w-full h-full object-cover group-hover:scale-110 transition duration-500"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuAlLCv4lf1vHa-1-tiuUVzKqi2jZxuiGOsRYNay4fRVG6lNeK5yrjSydMMqhTvAKSOR5BzCEdhdpQ-mhXamZyO7Ma0LmuR1_rWG-FtxRkiWHNh8kiWubDPhTe9pqfbV63jbDBfC9BEVBTwM7lnWZpn_HjSdhk_7_h9VSJ2KhASjJQD1S67XuNZaTTZKlhCNAklG25-IN8fFWaucg1uLjcksOHd4bx_5jEJ8dxMr6zaehVayH8BJFttY3FRWzaTfWKpCzDgT6r5pGqc" />
+                            <div
+                                class="absolute top-4 left-4 bg-orange-500 text-white px-3 py-1 rounded-full text-xs font-bold uppercase">
+                                Giảm 20%</div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold mb-1">Tokyo, Nhật Bản</h3>
+                            <p class="text-slate-500 text-sm mb-4">Hành trình 5 ngày khám phá văn hóa</p>
+                            <div class="flex justify-between items-center">
+                                <div>
+                                    <span class="text-slate-400 text-sm line-through">12.500.000đ</span>
+                                    <div class="text-primary text-xl font-bold">9.900.000đ</div>
+                                </div>
+                                <button
+                                    class="bg-blue-50 text-primary dark:bg-blue-900/30 dark:text-blue-300 px-4 py-2 rounded-lg font-semibold hover:bg-primary hover:text-white transition">Chi
+                                    tiết</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div
+                        class="group bg-white dark:bg-slate-800 rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all">
+                        <div class="relative h-48 overflow-hidden">
+                            <img alt="Bangkok"
+                                class="w-full h-full object-cover group-hover:scale-110 transition duration-500"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuC1vWCqa2CL8p7NMyOpR--Njmp8wXqWcCk1Vnu4brPLSkeyYOSb263fHC-hM0zWtBoUDHu9byQjv6b8O_YZILXEEif9cq6hCYZu9qmfcVoVMRar3Bih4vzjjo4voeAM0rOHe2OUZSFrM3OXRD5O3G9VJhgWHhw6XqaSlaYqvENcGrwWtSPwP-VOnfR7NNyY7arbNghr8BkiP3qbPp95hmVcqlXZOwJCFsn0AESc-hKNfvqi_ifwRM4PS_6Y2WNqoiIacusaG-aLxAQ" />
+                            <div
+                                class="absolute top-4 left-4 bg-orange-500 text-white px-3 py-1 rounded-full text-xs font-bold uppercase">
+                                Giá sốc</div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold mb-1">Bangkok, Thái Lan</h3>
+                            <p class="text-slate-500 text-sm mb-4">Nghỉ dưỡng cuối tuần tại Bangkok</p>
+                            <div class="flex justify-between items-center">
+                                <div>
+                                    <span class="text-slate-400 text-sm line-through">4.500.000đ</span>
+                                    <div class="text-primary text-xl font-bold">3.200.000đ</div>
+                                </div>
+                                <button
+                                    class="bg-blue-50 text-primary dark:bg-blue-900/30 dark:text-blue-300 px-4 py-2 rounded-lg font-semibold hover:bg-primary hover:text-white transition">Chi
+                                    tiết</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div
+                        class="group bg-white dark:bg-slate-800 rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all">
+                        <div class="relative h-48 overflow-hidden">
+                            <img alt="Singapore"
+                                class="w-full h-full object-cover group-hover:scale-110 transition duration-500"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuBbHS2HMbap4vW6GfyDJLywyqdEf3Q-TxYc_kQEBQRXNNmxPJKVJfmsATlJlfz6IQWfkPsV2iVVppNRYKOlgm9L5aPbzoz-fYg5lJbqW8xTYGa5i82eYhhwmpKx1-aG-fsgZRRxCpaxLKePklElmaWaqUnQMvPk4b3braUqxYUbq3ul2hLCnC4dC-PQ4OWMoTQGXeFlbO2ZL2Rp92nkVsyug86WC-yYNdAdMyxsPXttfu3crTJhwpzaAdEKT0M_8eu2QyfnEEdLAss" />
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold mb-1">Singapore</h3>
+                            <p class="text-slate-500 text-sm mb-4">Khám phá đảo quốc sư tử</p>
+                            <div class="flex justify-between items-center">
+                                <div>
+                                    <span class="text-slate-400 text-sm line-through">6.800.000đ</span>
+                                    <div class="text-primary text-xl font-bold">5.500.000đ</div>
+                                </div>
+                                <button
+                                    class="bg-blue-50 text-primary dark:bg-blue-900/30 dark:text-blue-300 px-4 py-2 rounded-lg font-semibold hover:bg-primary hover:text-white transition">Chi
+                                    tiết</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+                <div class="lg:col-span-2">
+                    <h2 class="text-2xl font-bold mb-6">Điểm đến phổ biến</h2>
+                    <div class="space-y-4">
+                        <div
+                            class="bg-white dark:bg-slate-800 p-5 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700 flex items-center justify-between hover:border-primary transition">
+                            <div class="flex items-center space-x-6">
+                                <div class="bg-blue-100 dark:bg-blue-900/40 p-3 rounded-full text-primary">
+                                    <span class="material-icons">flight_takeoff</span>
+                                </div>
+                                <div>
+                                    <div class="font-bold text-lg">Hà Nội <span
+                                            class="material-icons text-sm align-middle mx-2 text-slate-400">arrow_forward</span>
+                                        TP. Hồ Chí Minh</div>
+                                    <div class="text-slate-500 text-sm">Chỉ từ 890.000đ/chiều</div>
+                                </div>
+                            </div>
+                            <button
+                                class="border border-primary text-primary px-6 py-2 rounded-xl font-bold hover:bg-primary hover:text-white transition">Đặt
+                                ngay</button>
+                        </div>
+                        <div
+                            class="bg-white dark:bg-slate-800 p-5 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700 flex items-center justify-between hover:border-primary transition">
+                            <div class="flex items-center space-x-6">
+                                <div class="bg-blue-100 dark:bg-blue-900/40 p-3 rounded-full text-primary">
+                                    <span class="material-icons">flight_takeoff</span>
+                                </div>
+                                <div>
+                                    <div class="font-bold text-lg">Đà Nẵng <span
+                                            class="material-icons text-sm align-middle mx-2 text-slate-400">arrow_forward</span>
+                                        Seoul (Hàn Quốc)</div>
+                                    <div class="text-slate-500 text-sm">Chỉ từ 3.200.000đ/chiều</div>
+                                </div>
+                            </div>
+                            <button
+                                class="border border-primary text-primary px-6 py-2 rounded-xl font-bold hover:bg-primary hover:text-white transition">Đặt
+                                ngay</button>
+                        </div>
+                        <div
+                            class="bg-white dark:bg-slate-800 p-5 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700 flex items-center justify-between hover:border-primary transition">
+                            <div class="flex items-center space-x-6">
+                                <div class="bg-blue-100 dark:bg-blue-900/40 p-3 rounded-full text-primary">
+                                    <span class="material-icons">flight_takeoff</span>
+                                </div>
+                                <div>
+                                    <div class="font-bold text-lg">Nha Trang <span
+                                            class="material-icons text-sm align-middle mx-2 text-slate-400">arrow_forward</span>
+                                        Đài Bắc</div>
+                                    <div class="text-slate-500 text-sm">Chỉ từ 4.500.000đ/chiều</div>
+                                </div>
+                            </div>
+                            <button
+                                class="border border-primary text-primary px-6 py-2 rounded-xl font-bold hover:bg-primary hover:text-white transition">Đặt
+                                ngay</button>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <h2 class="text-2xl font-bold mb-6">Thông tin ưu đãi</h2>
+                    <div class="relative rounded-2xl overflow-hidden h-full min-h-[300px] shadow-lg group">
+                        <img alt="Bãi biển mùa hè"
+                            class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition duration-700"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuBH1WI9wupearSURRYyxiuNR1njnsxDvsyZ1XrU1XhO1WapqHTyvESMM9tZotf0cMTnK6UIdFjIUDiLa59dNdGUjUBrBWV5rYq4tIq9KxsqxBIFKBWPqhaJY-FIjNA3bCAGpmYAX8D-wGZZ_qLWvr2h4edftbaXutHBJWAWKHY4dopDC3Kwx1UaJx_uJC94gM3WT09FArlKseo_SBc0db_8J-Gkucv25wbiexUNhrXuzWnpuvXS42-oItXJI1MpGeTjWN-1qrm5JzM" />
+                        <div
+                            class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-8 text-white">
+                            <span
+                                class="bg-white/20 backdrop-blur-sm text-xs font-bold uppercase tracking-widest px-3 py-1 rounded mb-3 w-fit">Chương
+                                trình hè</span>
+                            <h3 class="text-3xl font-bold mb-2">Summer Sale!</h3>
+                            <p class="text-slate-200 mb-6">Giảm đến 40% toàn bộ vé máy bay nội địa và quốc tế trong
+                                tháng 7.</p>
+                            <button
+                                class="bg-white text-primary py-3 rounded-xl font-bold hover:bg-blue-50 transition w-full">Tìm
+                                hiểu thêm</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer class="bg-slate-100 dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 py-12 mt-20">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+                <div class="space-y-4">
+                    <div class="flex items-center space-x-2 text-primary">
+                        <span class="material-icons text-2xl">flight_takeoff</span>
+                        <span class="text-xl font-bold tracking-tight">giabaotravel</span>
+                    </div>
+                    <p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">
+                        Đại lý vé máy bay uy tín hàng đầu Việt Nam. Chúng tôi cung cấp giải pháp đặt vé nhanh chóng, an
+                        toàn với giá cạnh tranh nhất.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Dịch vụ</h4>
+                    <ul class="text-slate-500 dark:text-slate-400 text-sm space-y-2">
+                        <li><a class="hover:text-primary" href="#">Đặt vé máy bay</a></li>
+                        <li><a class="hover:text-primary" href="#">Đặt khách sạn</a></li>
+                        <li><a class="hover:text-primary" href="#">Combo du lịch</a></li>
+                        <li><a class="hover:text-primary" href="#">Tour trọn gói</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Hỗ trợ</h4>
+                    <ul class="text-slate-500 dark:text-slate-400 text-sm space-y-2">
+                        <li><a class="hover:text-primary" href="#">Trung tâm trợ giúp</a></li>
+                        <li><a class="hover:text-primary" href="#">Hướng dẫn thanh toán</a></li>
+                        <li><a class="hover:text-primary" href="#">Chính sách đổi trả</a></li>
+                        <li><a class="hover:text-primary" href="#">Bảo mật thông tin</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Kết nối</h4>
+                    <div class="flex space-x-4 mb-4">
+                        <a class="bg-white dark:bg-slate-800 p-2 rounded-full shadow-sm hover:text-primary transition"
+                            href="#"><span class="material-icons">facebook</span></a>
+                        <a class="bg-white dark:bg-slate-800 p-2 rounded-full shadow-sm hover:text-primary transition"
+                            href="#"><span class="material-icons">photo_camera</span></a>
+                        <a class="bg-white dark:bg-slate-800 p-2 rounded-full shadow-sm hover:text-primary transition"
+                            href="#"><span class="material-icons">mail</span></a>
+                    </div>
+                    <p class="text-xs text-slate-400">Hotline: 1900 1234 (24/7)</p>
+                </div>
+            </div>
+            <div
+                class="border-t border-slate-200 dark:border-slate-800 pt-8 flex flex-col md:row items-center justify-between text-xs text-slate-400 space-y-4 md:space-y-0">
+                <p>© 2023 giabaotravel. All rights reserved.</p>
+                <div class="flex space-x-6">
+                    <a class="hover:text-primary" href="#">Về chúng tôi</a>
+                    <a class="hover:text-primary" href="#">Liên hệ</a>
+                    <a class="hover:text-primary" href="#">Điều khoản dịch vụ</a>
+                    <a class="hover:text-primary" href="#">Chính sách bảo mật</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+
+</html>

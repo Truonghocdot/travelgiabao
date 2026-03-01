@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Giới thiệu - giabaotravel</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#137fec",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                    },
+                    fontFamily: {
+                        "display": ["Plus Jakarta Sans"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100">
+    <div class="layout-container flex h-full grow flex-col">
+        <header
+            class="flex items-center justify-between whitespace-nowrap border-b border-solid border-primary/10 bg-white dark:bg-background-dark px-10 py-3 sticky top-0 z-50">
+            <div class="flex items-center gap-8">
+                <div class="flex items-center gap-4 text-primary">
+                    <div class="size-6">
+                        <svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M6 6H42L36 24L42 42H6L12 24L6 6Z" fill="currentColor"></path>
+                        </svg>
+                    </div>
+                    <h2
+                        class="text-slate-900 dark:text-slate-100 text-xl font-extrabold leading-tight tracking-[-0.015em]">
+                        giabaotravel</h2>
+                </div>
+                <nav class="flex items-center gap-9">
+                    <a class="text-slate-600 dark:text-slate-300 text-sm font-semibold hover:text-primary transition-colors"
+                        href="#">Trang chủ</a>
+                    <a class="text-slate-600 dark:text-slate-300 text-sm font-semibold hover:text-primary transition-colors"
+                        href="#">Tour du lịch</a>
+                    <a class="text-slate-600 dark:text-slate-300 text-sm font-semibold hover:text-primary transition-colors"
+                        href="#">Tin tức</a>
+                    <a class="text-primary text-sm font-bold border-b-2 border-primary" href="#">Về chúng tôi</a>
+                    <a class="text-slate-600 dark:text-slate-300 text-sm font-semibold hover:text-primary transition-colors"
+                        href="#">Liên hệ</a>
+                </nav>
+            </div>
+            <div class="flex flex-1 justify-end gap-6 items-center">
+                <label class="flex flex-col min-w-40 h-10 max-w-64">
+                    <div class="flex w-full flex-1 items-stretch rounded-lg h-full">
+                        <div
+                            class="text-slate-400 flex border-none bg-slate-100 dark:bg-slate-800 items-center justify-center pl-4 rounded-l-lg">
+                            <span class="material-symbols-outlined text-[20px]">search</span>
+                        </div>
+                        <input
+                            class="form-input flex w-full min-w-0 flex-1 border-none bg-slate-100 dark:bg-slate-800 focus:ring-0 h-full placeholder:text-slate-400 px-4 rounded-r-lg text-sm font-normal"
+                            placeholder="Tìm kiếm tour..." value="" />
+                    </div>
+                </label>
+                <button
+                    class="flex min-w-[120px] cursor-pointer items-center justify-center rounded-lg h-10 px-5 bg-primary text-white text-sm font-bold hover:bg-primary/90 transition-all">
+                    <span>Đặt ngay</span>
+                </button>
+                <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 ring-2 ring-primary/20"
+                    data-alt="User profile avatar portrait"
+                    style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuANuqrmZhB1edVdR0MXgb7EX0Ks0lW7p4odcy5N8dyoQ1-pjK0GQ0jL1r0rpbIq_byD3U0a7k655JBANfPkOKNlWnZm-PUYffZ_kIFbYuzZ8ZUVQ37TRxr6oYf3M8_oHWEfPsjr1Z13lIDizsy99Cdv6n5a2LDPdtQQvy391k4o5ypSaRDR-nyL8wRIUZIWvj8ybBceZX-0sQgVo7y6G5rKN_YRUMGuZiO73IWDS7Vo4v9kWM2xc7hfNnE3B1D9UbkgcFgRULlBpYw");'>
+                </div>
+            </div>
+        </header>
+        <main class="flex-1">
+            <section class="relative h-[500px] w-full flex items-center justify-center overflow-hidden">
+                <div class="absolute inset-0 bg-cover bg-center"
+                    data-alt="Majestic mountain landscape with crystal clear lake"
+                    style='background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)), url("https://lh3.googleusercontent.com/aida-public/AB6AXuAnfV3RDITaqt8XvEC2vWLMqaiVZmifbSqxXNXme72BEAgU6gVOxINRpltdQoQAXJ9s-B4imPwdS3__eCG75oYu4_gDWzf0mRw7iXC-J3cjvBFbGSs8onlJWZxeFjcZj1KRN4HXZxmE1Bkcsuj6rGJ747wxD3Dp1kZ9NiGQ1_Na6AvTis2wUsbyJnp8MBmeumC_MtA5D-qA_AbKVL5Ow6rjZZsuSIKPWPpWLUmjtD43DVyAFLnuKRhmRpcT9aBXWiv5yW7TiIsaEGk");'>
+                </div>
+                <div class="relative z-10 text-center px-4 max-w-4xl">
+                    <h1 class="text-white text-5xl md:text-6xl font-black mb-6 tracking-tight">Về giabaotravel</h1>
+                    <p class="text-white/90 text-lg md:text-xl font-medium max-w-2xl mx-auto">
+                        Chúng tôi là cánh cửa đưa bạn đến với những điểm đến ngoạn mục nhất thế giới. Chuyên nghiệp, tin
+                        cậy và tận tâm trên mọi hành trình.
+                    </p>
+                    <div class="mt-10 flex justify-center gap-4">
+                        <button
+                            class="bg-primary text-white px-8 py-3 rounded-lg font-bold text-lg hover:scale-105 transition-transform">Khám
+                            phá Tour</button>
+                        <button
+                            class="bg-white/20 backdrop-blur-md text-white border border-white/30 px-8 py-3 rounded-lg font-bold text-lg hover:bg-white/30 transition-all">Liên
+                            hệ ngay</button>
+                    </div>
+                </div>
+            </section>
+            <div class="max-w-7xl mx-auto px-6 lg:px-10 py-16">
+                <section class="mb-20">
+                    <div class="flex flex-col lg:flex-row gap-12 items-center">
+                        <div class="flex-1">
+                            <span class="text-primary font-bold tracking-widest uppercase text-sm">Sứ mệnh của chúng
+                                tôi</span>
+                            <h2 class="text-slate-900 dark:text-slate-100 text-4xl font-black mt-4 mb-6 leading-tight">
+                                Kết nối bạn với những chuyến đi trong mơ</h2>
+                            <p class="text-slate-600 dark:text-slate-400 text-lg leading-relaxed mb-6">
+                                Được xây dựng trên nền tảng của sự tin tưởng và xuất sắc, giabaotravel hướng tới việc
+                                đơn giản hóa thế giới du lịch phức tạp. Chúng tôi cung cấp những trải nghiệm được chọn
+                                lọc kỹ lưỡng, không chỉ dừng lại ở việc tham quan mà còn tập trung vào sự hòa nhập văn
+                                hóa và những kỷ niệm khó quên.
+                            </p>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div
+                                    class="p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-background-dark shadow-sm">
+                                    <span
+                                        class="material-symbols-outlined text-primary text-3xl mb-3">verified_user</span>
+                                    <h3 class="font-bold text-lg mb-2">Chính trực</h3>
+                                    <p class="text-slate-500 text-sm">Giá cả minh bạch và các khuyến nghị trung thực là
+                                        tiêu chuẩn hàng đầu của chúng tôi.</p>
+                                </div>
+                                <div
+                                    class="p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-background-dark shadow-sm">
+                                    <span class="material-symbols-outlined text-primary text-3xl mb-3">psychology</span>
+                                    <h3 class="font-bold text-lg mb-2">Đổi mới</h3>
+                                    <p class="text-slate-500 text-sm">Ứng dụng công nghệ hiện đại giúp việc đặt chỗ trở
+                                        nên mượt mà như chuyến bay của bạn.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex-1 w-full">
+                            <div class="aspect-video rounded-2xl overflow-hidden shadow-2xl relative">
+                                <img alt="Traveler planning a journey with a map and laptop"
+                                    class="w-full h-full object-cover"
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuASF-d28si7b06lacvklDrN1uZnmFP_icqgJisDfHDS3nta4MdHtcUQtG_omSCFXU-Be_WpbUEM0qmhUSC8SCCvAsLqBqjWsyo5H6fF_OmiyYcg-3elFTPWYEwhW4l_TnC-uk58bYcHpzlj3ynr6weBlxwejRw8Ja2XtzLdpG7tug0Y_EWur8wDGS5L7k1bCaQMtIS-CJqThVtSa5_BYm0E-6kHitzmOwUnVjwaIAF_4ZOWTgVUdyoNSWbXQhdLLN7aXNFleP6n3ZM" />
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section class="mb-20 py-12 bg-slate-50 dark:bg-slate-900/50 rounded-3xl px-8">
+                    <div class="text-center mb-16">
+                        <h2 class="text-slate-900 dark:text-slate-100 text-4xl font-black">Lịch sử hình thành</h2>
+                        <p class="text-slate-500 mt-4">Hơn một thập kỷ dẫn đầu trong ngành du lịch</p>
+                    </div>
+                    <div
+                        class="relative space-y-8 before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-slate-300 before:to-transparent">
+                        <div
+                            class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
+                            <div
+                                class="flex items-center justify-center w-10 h-10 rounded-full border border-white bg-slate-300 dark:bg-slate-700 text-slate-500 group-[.is-active]:bg-primary group-[.is-active]:text-white shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 transition-colors duration-500">
+                                <span class="material-symbols-outlined text-[18px]">flag</span>
+                            </div>
+                            <div
+                                class="w-[calc(100%-4rem)] md:w-[45%] p-6 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-background-dark shadow-sm">
+                                <div class="flex items-center justify-between space-x-2 mb-1">
+                                    <div class="font-bold text-slate-900 dark:text-slate-100">Thành lập tại Hà Nội</div>
+                                    <time class="font-display font-bold text-primary">2010</time>
+                                </div>
+                                <div class="text-slate-500 text-sm">Bắt đầu với một đội ngũ nhỏ gồm 5 người đam mê du
+                                    lịch tại trung tâm thủ đô Việt Nam.</div>
+                            </div>
+                        </div>
+                        <div
+                            class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group">
+                            <div
+                                class="flex items-center justify-center w-10 h-10 rounded-full border border-white bg-slate-300 dark:bg-slate-700 text-slate-500 group-[.is-active]:bg-primary group-[.is-active]:text-white shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2">
+                                <span class="material-symbols-outlined text-[18px]">public</span>
+                            </div>
+                            <div
+                                class="w-[calc(100%-4rem)] md:w-[45%] p-6 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-background-dark shadow-sm">
+                                <div class="flex items-center justify-between space-x-2 mb-1">
+                                    <div class="font-bold text-slate-900 dark:text-slate-100">Mở rộng khu vực</div>
+                                    <time class="font-display font-bold text-primary">2015</time>
+                                </div>
+                                <div class="text-slate-500 text-sm">Mở văn phòng tại Thái Lan, Campuchia và Lào, trở
+                                    thành đơn vị lữ hành hàng đầu Đông Nam Á.</div>
+                            </div>
+                        </div>
+                        <div
+                            class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group">
+                            <div
+                                class="flex items-center justify-center w-10 h-10 rounded-full border border-white bg-slate-300 dark:bg-slate-700 text-slate-500 group-[.is-active]:bg-primary group-[.is-active]:text-white shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2">
+                                <span class="material-symbols-outlined text-[18px]">devices</span>
+                            </div>
+                            <div
+                                class="w-[calc(100%-4rem)] md:w-[45%] p-6 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-background-dark shadow-sm">
+                                <div class="flex items-center justify-between space-x-2 mb-1">
+                                    <div class="font-bold text-slate-900 dark:text-slate-100">Chuyển đổi số</div>
+                                    <time class="font-display font-bold text-primary">2018</time>
+                                </div>
+                                <div class="text-slate-500 text-sm">Ra mắt nền tảng kỹ thuật số toàn diện giúp khách
+                                    hàng đặt dịch vụ toàn cầu dễ dàng.</div>
+                            </div>
+                        </div>
+                        <div
+                            class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group">
+                            <div
+                                class="flex items-center justify-center w-10 h-10 rounded-full border border-white bg-slate-300 dark:bg-slate-700 text-slate-500 group-[.is-active]:bg-primary group-[.is-active]:text-white shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2">
+                                <span class="material-symbols-outlined text-[18px]">trophy</span>
+                            </div>
+                            <div
+                                class="w-[calc(100%-4rem)] md:w-[45%] p-6 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-background-dark shadow-sm">
+                                <div class="flex items-center justify-between space-x-2 mb-1">
+                                    <div class="font-bold text-slate-900 dark:text-slate-100">Giải thưởng Đại lý xuất
+                                        sắc</div>
+                                    <time class="font-display font-bold text-primary">2023</time>
+                                </div>
+                                <div class="text-slate-500 text-sm">Được vinh danh là đối tác lữ hành đáng tin cậy nhất
+                                    trong khu vực năm thứ 3 liên tiếp.</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section class="mb-10">
+                    <div class="text-center mb-12">
+                        <h2 class="text-slate-900 dark:text-slate-100 text-4xl font-black">Tại sao chọn giabaotravel?
+                        </h2>
+                        <p class="text-slate-500 mt-4 max-w-2xl mx-auto">Chúng tôi kết hợp sự am hiểu địa phương với
+                            tiêu chuẩn dịch vụ quốc tế để mang lại sự an tâm tuyệt đối.</p>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div
+                            class="flex flex-col items-center text-center p-8 rounded-2xl bg-primary/5 dark:bg-primary/10 border border-primary/10">
+                            <div
+                                class="size-16 rounded-full bg-primary text-white flex items-center justify-center mb-6">
+                                <span class="material-symbols-outlined text-4xl">support_agent</span>
+                            </div>
+                            <h3 class="text-xl font-bold mb-4">Hỗ trợ 24/7</h3>
+                            <p class="text-slate-600 dark:text-slate-400">Đội ngũ tận tâm luôn sẵn sàng hỗ trợ bạn bất
+                                kể sự khác biệt về múi giờ.</p>
+                        </div>
+                        <div
+                            class="flex flex-col items-center text-center p-8 rounded-2xl bg-primary/5 dark:bg-primary/10 border border-primary/10">
+                            <div
+                                class="size-16 rounded-full bg-primary text-white flex items-center justify-center mb-6">
+                                <span class="material-symbols-outlined text-4xl">sell</span>
+                            </div>
+                            <h3 class="text-xl font-bold mb-4">Cam kết giá tốt nhất</h3>
+                            <p class="text-slate-600 dark:text-slate-400">Chúng tôi cung cấp mức giá cạnh tranh nhất mà
+                                không làm giảm đi chất lượng trải nghiệm.</p>
+                        </div>
+                        <div
+                            class="flex flex-col items-center text-center p-8 rounded-2xl bg-primary/5 dark:bg-primary/10 border border-primary/10">
+                            <div
+                                class="size-16 rounded-full bg-primary text-white flex items-center justify-center mb-6">
+                                <span class="material-symbols-outlined text-4xl">travel_explore</span>
+                            </div>
+                            <h3 class="text-xl font-bold mb-4">Am hiểu địa phương</h3>
+                            <p class="text-slate-600 dark:text-slate-400">Hướng dẫn viên địa phương mang đến những kiến
+                                thức thực tế và những điểm đến bí ẩn.</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+        <footer class="bg-slate-900 text-slate-300 py-16 px-10 border-t border-slate-800">
+            <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12">
+                <div class="col-span-1 md:col-span-1">
+                    <div class="flex items-center gap-4 text-white mb-6">
+                        <div class="size-6 text-primary">
+                            <svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M6 6H42L36 24L42 42H6L12 24L6 6Z" fill="currentColor"></path>
+                            </svg>
+                        </div>
+                        <h2 class="text-xl font-extrabold tracking-tight">giabaotravel</h2>
+                    </div>
+                    <p class="text-sm leading-relaxed mb-6 text-slate-400">
+                        Mang đến những hành trình đẳng cấp thế giới, dễ dàng tiếp cận và khó quên cho tất cả mọi người,
+                        mọi nơi.
+                    </p>
+                    <div class="flex gap-4">
+                        <a class="size-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-primary hover:text-white transition-all"
+                            href="#">
+                            <span class="material-symbols-outlined text-[20px]">social_leaderboard</span>
+                        </a>
+                        <a class="size-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-primary hover:text-white transition-all"
+                            href="#">
+                            <span class="material-symbols-outlined text-[20px]">alternate_email</span>
+                        </a>
+                        <a class="size-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-primary hover:text-white transition-all"
+                            href="#">
+                            <span class="material-symbols-outlined text-[20px]">share</span>
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-6">Liên kết nhanh</h4>
+                    <ul class="space-y-4 text-sm">
+                        <li><a class="hover:text-primary transition-colors" href="#">Tìm kiếm Tour</a></li>
+                        <li><a class="hover:text-primary transition-colors" href="#">Tin tức du lịch mới nhất</a></li>
+                        <li><a class="hover:text-primary transition-colors" href="#">Ưu đãi đặc biệt</a></li>
+                        <li><a class="hover:text-primary transition-colors" href="#">Bảo hiểm du lịch</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-6">Thông tin liên hệ</h4>
+                    <ul class="space-y-4 text-sm">
+                        <li class="flex items-start gap-3">
+                            <span class="material-symbols-outlined text-primary text-[20px]">location_on</span>
+                            <span>123 Đường Du Lịch, Quận Hoàn Kiếm, Hà Nội, Việt Nam</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <span class="material-symbols-outlined text-primary text-[20px]">call</span>
+                            <span>+84 (0) 24 3456 7890</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <span class="material-symbols-outlined text-primary text-[20px]">mail</span>
+                            <span>hello@giabaotravel.com</span>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-6">Đăng ký bản tin</h4>
+                    <p class="text-sm text-slate-400 mb-4">Đăng ký để nhận những mẹo du lịch mới nhất và các ưu đãi độc
+                        quyền.</p>
+                    <div class="flex gap-2">
+                        <input
+                            class="bg-slate-800 border-none rounded-lg text-sm flex-1 px-4 py-2 focus:ring-1 focus:ring-primary"
+                            placeholder="Email của bạn" type="email" />
+                        <button class="bg-primary text-white px-4 py-2 rounded-lg text-sm font-bold">Tham gia</button>
+                    </div>
+                </div>
+            </div>
+            <div class="max-w-7xl mx-auto mt-16 pt-8 border-t border-slate-800 text-center text-xs text-slate-500">
+                <p>© 2024 giabaotravel. Bản quyền thuộc về Công ty Dịch vụ Du lịch Chuyên nghiệp Toàn cầu.</p>
+            </div>
+        </footer>
+    </div>
+
+</body>
+
+</html>
