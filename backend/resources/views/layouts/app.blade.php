@@ -129,11 +129,11 @@
                 <div>
                     <h4 class="text-slate-900 dark:text-white font-bold mb-4">Kết nối</h4>
                     <div class="flex space-x-4 mb-4">
-                        <a class="bg-white dark:bg-slate-800 p-2 rounded-full shadow-sm hover:text-primary transition" href="#" aria-label="Facebook"><span class="material-icons">facebook</span></a>
+                        <a class="bg-white dark:bg-slate-800 p-2 rounded-full shadow-sm hover:text-primary transition" href="https://www.facebook.com/giabaovmb.com.vn" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><span class="material-icons">facebook</span></a>
                         <a class="bg-white dark:bg-slate-800 p-2 rounded-full shadow-sm hover:text-primary transition" href="#" aria-label="Instagram"><span class="material-icons">photo_camera</span></a>
                         <a class="bg-white dark:bg-slate-800 p-2 rounded-full shadow-sm hover:text-primary transition" href="#" aria-label="Email"><span class="material-icons">mail</span></a>
                     </div>
-                    <p class="text-xs text-slate-500 mt-2">Hotline: 1900 1234 (24/7)</p>
+                    <p class="text-xs text-slate-500 mt-2">Hotline: 0981119692 (24/7)</p>
                 </div>
             </div>
             <div class="border-t border-slate-200 dark:border-slate-800 pt-8 flex flex-col md:flex-row items-center justify-between text-xs text-slate-500 space-y-4 md:space-y-0">
@@ -150,7 +150,7 @@
 
     {{-- Floating Contact Bar --}}
     <div class="fixed bottom-6 right-6 flex flex-col space-y-3 z-[9999]">
-        <a href="https://zalo.me/0912345678" target="_blank" rel="noopener noreferrer" aria-label="Chat Zalo" class="w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-transform hover:shadow-xl relative group cursor-pointer border-2 border-slate-100 dark:border-slate-800 p-1.5 object-cover overflow-hidden">
+        <a href="https://zalo.me/0981119692" target="_blank" rel="noopener noreferrer" aria-label="Chat Zalo" class="w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-transform hover:shadow-xl relative group cursor-pointer border-2 border-slate-100 dark:border-slate-800 p-1.5 object-cover overflow-hidden">
             <img src="{{ asset('Icon_of_Zalo.svg.png') }}" class="w-full h-full object-contain" alt="Zalo Logo">
             <span class="absolute right-full mr-3 bg-white text-slate-800 text-xs font-bold px-3 py-1.5 rounded-lg shadow-md opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">Zalo</span>
         </a>
@@ -165,6 +165,12 @@
                 <path d="M12.031 0A12 12 0 00.323 18.257L0 24l5.885-1.54A11.968 11.968 0 0012.031 24c6.626 0 12-5.372 12-12s-5.374-12-12-12zm6.653 17.202c-.302.847-1.749 1.616-2.42 1.685-.603.061-1.383.17-3.95-1.026-3.085-1.433-5.068-4.593-5.221-4.801-.153-.21-1.246-1.664-1.246-3.173 0-1.508.789-2.253 1.074-2.559.283-.306.618-.383.823-.383.204 0 .408.005.587.014.195.009.458-.076.716.549.273.66.93 2.274 1.011 2.438.082.162.137.352.034.557-.101.205-.152.33-.305.512-.152.18-.316.386-.45.549-.144.173-.302.366-.129.664.173.298.77 1.274 1.656 2.065 1.144 1.022 2.107 1.338 2.396 1.493.289.153.46.128.633-.06.173-.187.751-.873.953-1.173.203-.301.405-.251.67-.153.264.098 1.676.789 1.964.933.288.143.481.214.55.333.07.119.07.69-.232 1.537z" />
             </svg>
             <span class="absolute right-full mr-3 bg-white text-slate-800 text-xs font-bold px-3 py-1.5 rounded-lg shadow-md opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">WhatsApp</span>
+        </a>
+        <a href="https://www.facebook.com/giabaovmb.com.vn" target="_blank" rel="noopener noreferrer" aria-label="Facebook Page" class="w-12 h-12 bg-[#1877F2] rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-transform hover:shadow-xl relative group cursor-pointer border-2 border-white dark:border-slate-800">
+            <svg class="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+            </svg>
+            <span class="absolute right-full mr-3 bg-white text-slate-800 text-xs font-bold px-3 py-1.5 rounded-lg shadow-md opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">Facebook</span>
         </a>
     </div>
 

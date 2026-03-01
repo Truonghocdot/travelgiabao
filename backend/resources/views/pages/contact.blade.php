@@ -62,7 +62,7 @@
                     </div>
                     <div>
                         <h4 class="text-xl font-bold mb-2">Trụ sở chính</h4>
-                        <p class="text-slate-600 dark:text-slate-400">129/20 <br>Phan Đình Phùng<br>Thành phố Nha Trang, Khánh Hòa</p>
+                        <p class="text-slate-600 dark:text-slate-400">129/20 <br>Phan Đình Phùng<br>Thành phố  Cam Ranh, Khánh Hòa</p>
                     </div>
                 </div>
             </div>

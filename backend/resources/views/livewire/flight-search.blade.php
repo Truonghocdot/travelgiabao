@@ -66,7 +66,7 @@
         {{-- Row 2: Dates + Passengers --}}
         <div class="flex flex-col sm:flex-row gap-2 items-stretch sm:items-end">
             {{-- Departure Date --}}
-            <div class="flex-1 min-w-0">
+            <div class="flex-1 min-w-0 relative">
                 <label class="block text-xs font-bold text-slate-500 dark:text-slate-400 uppercase mb-1 ml-1">Ngày đi</label>
                 <button type="button" wire:click="openDateModal"
                     class="w-full flex items-center gap-2 border border-slate-300 dark:border-slate-600 rounded-xl p-3 bg-white dark:bg-slate-700 hover:border-primary transition text-left">
@@ -76,11 +76,56 @@
                     </span>
                 </button>
                 <input type="hidden" name="date" value="{{ $date }}">
+
+                {{-- Departure calendar dropdown --}}
+                @if($showDateModal)
+                <div class="absolute top-full left-0 mt-1 z-30 bg-white dark:bg-slate-800 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-700 w-72">
+                    <div class="flex items-center justify-between px-4 py-3 border-b border-slate-100 dark:border-slate-700">
+                        <button wire:click="prevCalendarMonth" type="button" class="p-1 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg">
+                            <span class="material-icons text-base">chevron_left</span>
+                        </button>
+                        <span class="font-bold text-sm">Tháng {{ $calendarMonth }}/{{ $calendarYear }}</span>
+                        <button wire:click="nextCalendarMonth" type="button" class="p-1 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg">
+                            <span class="material-icons text-base">chevron_right</span>
+                        </button>
+                    </div>
+                    <div class="p-3">
+                        {{-- Day headers --}}
+                        <div style="display:grid;grid-template-columns:repeat(7,minmax(0,1fr));" class="mb-1">
+                            @foreach(['T2','T3','T4','T5','T6','T7','CN'] as $h)
+                            <div class="text-center py-1" style="font-size:10px;font-weight:700;color:{{ $h==='CN' ? '#ef4444' : '#94a3b8' }}">{{ $h }}</div>
+                            @endforeach
+                        </div>
+                        {{-- Days --}}
+                        <div style="display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:2px 0;">
+                            @foreach($calendarDays as $cell)
+                            @if($cell === null)
+                            <div></div>
+                            @else
+                            <button
+                                type="button"
+                                wire:click="selectDate('{{ $cell['date'] }}')"
+                                @if($cell['past']) disabled @endif
+                                style="display:flex;flex-direction:column;align-items:center;padding:4px 2px;border-radius:8px;cursor:{{ $cell['past'] ? 'not-allowed' : 'pointer' }};opacity:{{ $cell['past'] ? '0.3' : '1' }};background:{{ $date===$cell['date'] ? 'var(--color-primary, #2563eb)' : 'transparent' }};color:{{ $date===$cell['date'] ? '#fff' : ($cell['dow']==0 ? '#ef4444' : 'inherit') }};"
+                                class="hover:bg-blue-50 dark:hover:bg-slate-700 transition">
+                                <span style="font-size:12px;font-weight:700;line-height:1;">{{ $cell['day'] }}</span>
+                                @if($cell['price'])
+                                <span style="font-size:9px;font-weight:600;line-height:1;margin-top:2px;color:{{ $date===$cell['date'] ? 'rgba(255,255,255,.85)' : '#2563eb' }}">
+                                    {{ number_format($cell['price']/1000, 0) }}K
+                                </span>
+                                @endif
+                            </button>
+                            @endif
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+                @endif
             </div>
 
             {{-- Return Date (roundtrip only) --}}
             @if($tripType === 'roundtrip')
-            <div class="flex-1 min-w-0">
+            <div class="flex-1 min-w-0 relative">
                 <label class="block text-xs font-bold text-slate-500 dark:text-slate-400 uppercase mb-1 ml-1">Ngày về</label>
                 <button type="button" wire:click="openReturnModal"
                     class="w-full flex items-center gap-2 border border-slate-300 dark:border-slate-600 rounded-xl p-3 bg-white dark:bg-slate-700 hover:border-primary transition text-left">
@@ -90,6 +135,49 @@
                     </span>
                 </button>
                 <input type="hidden" name="return_date" value="{{ $returnDate }}">
+
+                {{-- Return calendar dropdown --}}
+                @if($showReturnModal)
+                <div class="absolute top-full left-0 mt-1 z-30 bg-white dark:bg-slate-800 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-700 w-72">
+                    <div class="flex items-center justify-between px-4 py-3 border-b border-slate-100 dark:border-slate-700">
+                        <button wire:click="prevReturnMonth" type="button" class="p-1 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg">
+                            <span class="material-icons text-base">chevron_left</span>
+                        </button>
+                        <span class="font-bold text-sm">Tháng {{ $returnCalendarMonth }}/{{ $returnCalendarYear }}</span>
+                        <button wire:click="nextReturnMonth" type="button" class="p-1 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg">
+                            <span class="material-icons text-base">chevron_right</span>
+                        </button>
+                    </div>
+                    <div class="p-3">
+                        <div style="display:grid;grid-template-columns:repeat(7,minmax(0,1fr));" class="mb-1">
+                            @foreach(['T2','T3','T4','T5','T6','T7','CN'] as $h)
+                            <div class="text-center py-1" style="font-size:10px;font-weight:700;color:{{ $h==='CN' ? '#ef4444' : '#94a3b8' }}">{{ $h }}</div>
+                            @endforeach
+                        </div>
+                        <div style="display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:2px 0;">
+                            @foreach($returnDays as $cell)
+                            @if($cell === null)
+                            <div></div>
+                            @else
+                            <button
+                                type="button"
+                                wire:click="selectReturnDate('{{ $cell['date'] }}')"
+                                @if($cell['past']) disabled @endif
+                                style="display:flex;flex-direction:column;align-items:center;padding:4px 2px;border-radius:8px;cursor:{{ $cell['past'] ? 'not-allowed' : 'pointer' }};opacity:{{ $cell['past'] ? '0.3' : '1' }};background:{{ $returnDate===$cell['date'] ? 'var(--color-primary, #2563eb)' : 'transparent' }};color:{{ $returnDate===$cell['date'] ? '#fff' : ($cell['dow']==0 ? '#ef4444' : 'inherit') }};"
+                                class="hover:bg-blue-50 dark:hover:bg-slate-700 transition">
+                                <span style="font-size:12px;font-weight:700;line-height:1;">{{ $cell['day'] }}</span>
+                                @if($cell['price'])
+                                <span style="font-size:9px;font-weight:600;line-height:1;margin-top:2px;color:{{ $returnDate===$cell['date'] ? 'rgba(255,255,255,.85)' : '#2563eb' }}">
+                                    {{ number_format($cell['price']/1000, 0) }}K
+                                </span>
+                                @endif
+                            </button>
+                            @endif
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+                @endif
             </div>
             @endif
 
@@ -103,7 +191,7 @@
                 </button>
             </div>
         </div>
-
+aa
         <button type="submit"
             class="w-full bg-primary hover:bg-blue-700 text-white font-bold py-4 rounded-xl shadow-lg flex items-center justify-center space-x-2 transition-all transform hover:scale-[1.01] active:scale-95">
             <span class="material-icons">search</span>
@@ -111,125 +199,6 @@
         </button>
     </form>
 
-    {{-- ======== DEPARTURE DATE MODAL ======== --}}
-    @if($showDateModal)
-    <div class="fixed inset-0 z-50 flex items-center justify-center px-3">
-        <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-2xl w-full max-w-sm overflow-hidden">
-            <div class="flex items-center justify-between p-4 border-b border-slate-100 dark:border-slate-700">
-                <h2 class="font-bold text-base">Chọn ngày đi</h2>
-                <button wire:click="closeModals" class="p-1 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-full">
-                    <span class="material-icons">close</span>
-                </button>
-            </div>
-            <div class="p-4">
-                {{-- Month nav --}}
-                <div class="flex items-center justify-between mb-3">
-                    <button wire:click="prevCalendarMonth" class="p-2 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg">
-                        <span class="material-icons text-lg">chevron_left</span>
-                    </button>
-                    <span class="font-bold text-sm">
-                        Tháng {{ $calendarMonth }}/{{ $calendarYear }}
-                    </span>
-                    <button wire:click="nextCalendarMonth" class="p-2 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg">
-                        <span class="material-icons text-lg">chevron_right</span>
-                    </button>
-                </div>
-                {{-- Day headers --}}
-                <div class="grid grid-cols-7 mb-1">
-                    @foreach(['T2','T3','T4','T5','T6','T7','CN'] as $h)
-                    <div class="text-center text-[10px] font-bold {{ $h === 'CN' ? 'text-red-500' : 'text-slate-400' }} py-1">{{ $h }}</div>
-                    @endforeach
-                </div>
-                {{-- Calendar grid --}}
-                <div class="grid grid-cols-7 gap-y-1">
-                    @foreach($calendarDays as $cell)
-                    @if($cell === null)
-                    <div></div>
-                    @else
-                    <button
-                        type="button"
-                        wire:click="selectDate('{{ $cell['date'] }}')"
-                        @if($cell['past']) disabled @endif
-                        class="flex flex-col items-center py-1.5 rounded-lg text-center transition
-                            {{ $cell['past'] ? 'opacity-30 cursor-not-allowed' : 'hover:bg-blue-50 dark:hover:bg-slate-700 cursor-pointer' }}
-                            {{ $date === $cell['date'] ? 'bg-primary text-white hover:bg-primary' : '' }}
-                            {{ $cell['dow'] == 0 ? 'text-red-500' : '' }}
-                            {{ $cell['today'] && $date !== $cell['date'] ? 'border border-primary/50' : '' }}
-                        ">
-                        <span class="text-xs font-bold leading-none">{{ $cell['day'] }}</span>
-                        @if($cell['price'])
-                        <span class="text-[8px] font-medium leading-none mt-0.5 {{ $date === $cell['date'] ? 'text-white/90' : 'text-primary' }}">
-                            {{ number_format($cell['price']/1000, 0) }}K
-                        </span>
-                        @endif
-                    </button>
-                    @endif
-                    @endforeach
-                </div>
-            </div>
-        </div>
-    </div>
-    @endif
-
-    {{-- ======== RETURN DATE MODAL ======== --}}
-    @if($showReturnModal)
-    <div class="fixed inset-0 z-50 flex items-center justify-center px-3">
-        <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-2xl w-full max-w-sm overflow-hidden">
-            <div class="flex items-center justify-between p-4 border-b border-slate-100 dark:border-slate-700">
-                <h2 class="font-bold text-base">Chọn ngày về</h2>
-                <button wire:click="closeModals" class="p-1 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-full">
-                    <span class="material-icons">close</span>
-                </button>
-            </div>
-            <div class="p-4">
-                {{-- Month nav --}}
-                <div class="flex items-center justify-between mb-3">
-                    <button wire:click="prevReturnMonth" class="p-2 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg">
-                        <span class="material-icons text-lg">chevron_left</span>
-                    </button>
-                    <span class="font-bold text-sm">
-                        Tháng {{ $returnCalendarMonth }}/{{ $returnCalendarYear }}
-                    </span>
-                    <button wire:click="nextReturnMonth" class="p-2 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg">
-                        <span class="material-icons text-lg">chevron_right</span>
-                    </button>
-                </div>
-                {{-- Day headers --}}
-                <div class="grid grid-cols-7 mb-1">
-                    @foreach(['T2','T3','T4','T5','T6','T7','CN'] as $h)
-                    <div class="text-center text-[10px] font-bold {{ $h === 'CN' ? 'text-red-500' : 'text-slate-400' }} py-1">{{ $h }}</div>
-                    @endforeach
-                </div>
-                {{-- Calendar grid --}}
-                <div class="grid grid-cols-7 gap-y-1">
-                    @foreach($returnDays as $cell)
-                    @if($cell === null)
-                    <div></div>
-                    @else
-                    <button
-                        type="button"
-                        wire:click="selectReturnDate('{{ $cell['date'] }}')"
-                        @if($cell['past']) disabled @endif
-                        class="flex flex-col items-center py-1.5 rounded-lg text-center transition
-                            {{ $cell['past'] ? 'opacity-30 cursor-not-allowed' : 'hover:bg-blue-50 dark:hover:bg-slate-700 cursor-pointer' }}
-                            {{ $returnDate === $cell['date'] ? 'bg-primary text-white hover:bg-primary' : '' }}
-                            {{ $cell['dow'] == 0 ? 'text-red-500' : '' }}
-                            {{ $cell['today'] && $returnDate !== $cell['date'] ? 'border border-primary/50' : '' }}
-                        ">
-                        <span class="text-xs font-bold leading-none">{{ $cell['day'] }}</span>
-                        @if($cell['price'])
-                        <span class="text-[8px] font-medium leading-none mt-0.5 {{ $returnDate === $cell['date'] ? 'text-white/90' : 'text-primary' }}">
-                            {{ number_format($cell['price']/1000, 0) }}K
-                        </span>
-                        @endif
-                    </button>
-                    @endif
-                    @endforeach
-                </div>
-            </div>
-        </div>
-    </div>
-    @endif
 
     {{-- ======== FROM MODAL ======== --}}
     @if($showFromModal)
