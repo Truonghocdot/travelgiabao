@@ -166,4 +166,36 @@ class PageController extends Controller
         }
         return null;
     }
+
+    public function contactSubmit(Request $request)
+    {
+        $request->validate([
+            'customer_name'  => 'required|string|max:255',
+            'customer_phone' => 'required|string|max:30',
+            'customer_email' => 'nullable|email|max:255',
+            'customer_note'  => 'required|string',
+        ]);
+
+        Booking::create([
+            'booking_code'   => Booking::generateBookingCode(),
+            'customer_name'  => $request->customer_name,
+            'customer_phone' => $request->customer_phone,
+            'customer_email' => $request->customer_email,
+            'customer_note'  => $request->customer_note,
+            'status'         => 'pending',
+            // Placeholders – staff will fill in flight info from admin
+            'flight_number'  => null,
+            'airline_name'   => 'Liên hệ',
+            'origin'         => null,
+            'destination'    => null,
+            'departure_time' => null,
+            'arrival_time'   => null,
+            'flight_date'    => now()->toDateString(),
+            'price'          => 0,
+            'passengers'     => '1 người lớn',
+        ]);
+
+        return redirect()->route('contact')
+            ->with('success', 'Cảm ơn bạn đã liên hệ! Chúng tôi sẽ phản hồi sớm nhất có thể.');
+    }
 }

@@ -15,6 +15,7 @@ class FlightSearch extends Component
     public string $toCode = 'HAN';
     public string $toName = 'Hà Nội';
     public string $date = '';
+    public string $returnDate = '';
     public string $passengers = '1 người lớn, Phổ thông';
     public string $tripType = 'roundtrip';
 

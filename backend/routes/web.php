@@ -10,3 +10,4 @@ Route::get('/tin-tuc/{slug}', [PageController::class, 'blogDetail'])->name('blog
 Route::get('/contact', [PageController::class, 'contact'])->name('contact');
 Route::get('/schedule', [PageController::class, 'schedule'])->name('schedule');
 Route::post('/booking', [PageController::class, 'booking'])->name('booking.store');
+Route::post('/lien-he', [PageController::class, 'contactSubmit'])->name('contact.submit');

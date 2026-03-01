@@ -8,26 +8,27 @@
     <div class="flex justify-center mb-6">
         <div class="inline-flex p-1 bg-slate-200 dark:bg-slate-700 rounded-xl">
             <button wire:click="$set('tripType','roundtrip')"
-                class="px-6 py-2 rounded-lg text-sm font-semibold transition {{ $tripType === 'roundtrip' ? 'bg-white dark:bg-slate-600 shadow-sm' : 'hover:bg-white/50' }}">
-                Khứ hồi
+                class="px-6 py-2 rounded-lg text-sm font-semibold transition {{ $tripType === 'roundtrip' ? 'bg-white dark:bg-slate-600 shadow-sm text-primary' : 'hover:bg-white/50' }}">
+                ↔ Khứ hồi
             </button>
             <button wire:click="$set('tripType','oneway')"
-                class="px-6 py-2 rounded-lg text-sm font-semibold transition {{ $tripType === 'oneway' ? 'bg-white dark:bg-slate-600 shadow-sm' : 'hover:bg-white/50' }}">
-                Một chiều
+                class="px-6 py-2 rounded-lg text-sm font-semibold transition {{ $tripType === 'oneway' ? 'bg-white dark:bg-slate-600 shadow-sm text-primary' : 'hover:bg-white/50' }}">
+                → Một chiều
             </button>
         </div>
     </div>
 
     {{-- Main Search Form --}}
-    <form action="{{ url('/schedule') }}" method="GET" class="w-full">
+    <form action="{{ url('/schedule') }}" method="GET" class="w-full space-y-3">
         <input type="hidden" name="from" value="{{ $from }}">
         <input type="hidden" name="to" value="{{ $to }}">
         <input type="hidden" name="passengers" value="{{ $passengers }}">
-        <input type="hidden" name="date" value="{{ $date }}">
+        <input type="hidden" name="trip_type" value="{{ $tripType }}">
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 mb-4 items-end">
+        {{-- Row 1: FROM | SWAP | TO --}}
+        <div class="flex flex-col sm:flex-row gap-2 items-stretch sm:items-end">
             {{-- FROM --}}
-            <div class="relative">
+            <div class="flex-1 min-w-0">
                 <label class="block text-xs font-bold text-slate-500 dark:text-slate-400 uppercase mb-1 ml-1">Điểm khởi hành</label>
                 <button type="button" wire:click="openFromModal"
                     class="w-full flex items-center gap-2 border border-slate-300 dark:border-slate-600 rounded-xl p-3 bg-white dark:bg-slate-700 hover:border-primary transition text-left">
@@ -39,40 +40,59 @@
                 </button>
             </div>
 
-            {{-- SWAP button --}}
-            <div class="relative hidden lg:block md:block">
-                <label class="block text-xs font-bold text-transparent mb-1">Đổi</label>
-                <div class="relative">
-                    <label class="block text-xs font-bold text-slate-500 dark:text-slate-400 uppercase mb-1 ml-1">Điểm đến</label>
-                    <button type="button" wire:click="openToModal"
-                        class="w-full flex items-center gap-2 border border-slate-300 dark:border-slate-600 rounded-xl p-3 bg-white dark:bg-slate-700 hover:border-primary transition text-left">
-                        <span class="material-icons text-slate-400 shrink-0">flight_land</span>
-                        <div class="flex-1 min-w-0">
-                            <div class="font-bold text-slate-800 dark:text-white truncate text-sm">{{ $toName }}</div>
-                            <div class="text-xs text-slate-400">{{ $toCode }}</div>
-                        </div>
-                    </button>
-                    {{-- Swap icon between from/to --}}
-                    <button type="button" wire:click="swapLocations"
-                        class="absolute -left-5 top-1/2 transform -translate-y-1/2 w-10 h-10 rounded-full bg-white dark:bg-slate-700 border-2 border-slate-200 dark:border-slate-600 flex items-center justify-center shadow-md hover:bg-primary hover:text-white hover:border-primary transition z-10">
-                        <span class="material-icons text-sm">swap_horiz</span>
-                    </button>
+            {{-- SWAP button (standalone, between FROM and TO) --}}
+            <div class="flex-none flex justify-center sm:items-end">
+                <button type="button" wire:click="swapLocations"
+                    title="Đổi điểm đi/đến"
+                    class="w-11 h-11 rounded-full bg-white dark:bg-slate-700 border-2 border-slate-300 dark:border-slate-600 flex items-center justify-center shadow hover:bg-primary hover:text-white hover:border-primary transition">
+                    <span class="material-icons text-base">swap_horiz</span>
+                </button>
+            </div>
+
+            {{-- TO --}}
+            <div class="flex-1 min-w-0">
+                <label class="block text-xs font-bold text-slate-500 dark:text-slate-400 uppercase mb-1 ml-1">Điểm đến</label>
+                <button type="button" wire:click="openToModal"
+                    class="w-full flex items-center gap-2 border border-slate-300 dark:border-slate-600 rounded-xl p-3 bg-white dark:bg-slate-700 hover:border-primary transition text-left">
+                    <span class="material-icons text-slate-400 shrink-0">flight_land</span>
+                    <div class="flex-1 min-w-0">
+                        <div class="font-bold text-slate-800 dark:text-white truncate text-sm">{{ $toName }}</div>
+                        <div class="text-xs text-slate-400">{{ $toCode }}</div>
+                    </div>
+                </button>
+            </div>
+        </div>
+
+        {{-- Row 2: Dates + Passengers --}}
+        <div class="flex flex-col sm:flex-row gap-2 items-stretch sm:items-end">
+            {{-- Departure Date --}}
+            <div class="flex-1 min-w-0">
+                <label class="block text-xs font-bold text-slate-500 dark:text-slate-400 uppercase mb-1 ml-1">Ngày đi</label>
+                <div class="flex items-center border border-slate-300 dark:border-slate-600 rounded-xl px-3 py-3 bg-white dark:bg-slate-700">
+                    <span class="material-icons text-slate-400 mr-2 shrink-0 text-lg">calendar_today</span>
+                    <input name="date" wire:model="date"
+                        class="bg-transparent border-none focus:ring-0 w-full p-0 text-sm text-slate-800 dark:text-white"
+                        type="date"
+                        min="{{ now()->format('Y-m-d') }}" />
                 </div>
             </div>
 
-            {{-- DATE --}}
-            <div class="relative">
-                <label class="block text-xs font-bold text-slate-500 dark:text-slate-400 uppercase mb-1 ml-1">
-                    {{ $tripType === 'roundtrip' ? 'Ngày đi - Ngày về' : 'Ngày đi' }}
-                </label>
-                <div class="flex items-center border border-slate-300 dark:border-slate-600 rounded-xl p-3 bg-white dark:bg-slate-700">
-                    <span class="material-icons text-slate-400 mr-2 shrink-0">calendar_today</span>
-                    <input name="date" wire:model="date" class="bg-transparent border-none focus:ring-0 w-full p-0 text-sm" placeholder="dd/mm/yyyy" type="text" />
+            {{-- Return Date (roundtrip only) --}}
+            @if($tripType === 'roundtrip')
+            <div class="flex-1 min-w-0">
+                <label class="block text-xs font-bold text-slate-500 dark:text-slate-400 uppercase mb-1 ml-1">Ngày về</label>
+                <div class="flex items-center border border-slate-300 dark:border-slate-600 rounded-xl px-3 py-3 bg-white dark:bg-slate-700">
+                    <span class="material-icons text-slate-400 mr-2 shrink-0 text-lg">event_available</span>
+                    <input name="return_date" wire:model="returnDate"
+                        class="bg-transparent border-none focus:ring-0 w-full p-0 text-sm text-slate-800 dark:text-white"
+                        type="date"
+                        min="{{ now()->format('Y-m-d') }}" />
                 </div>
             </div>
+            @endif
 
-            {{-- PASSENGERS --}}
-            <div class="relative">
+            {{-- Passengers --}}
+            <div class="flex-1 min-w-0">
                 <label class="block text-xs font-bold text-slate-500 dark:text-slate-400 uppercase mb-1 ml-1">Hành khách & Hạng ghế</label>
                 <button type="button" wire:click="togglePassengerModal"
                     class="w-full flex items-center gap-2 border border-slate-300 dark:border-slate-600 rounded-xl p-3 bg-white dark:bg-slate-700 hover:border-primary transition text-left">
@@ -80,19 +100,6 @@
                     <span class="text-sm text-slate-700 dark:text-slate-200 truncate">{{ $passengers }}</span>
                 </button>
             </div>
-        </div>
-
-        {{-- Mobile TO field --}}
-        <div class="md:hidden mb-3">
-            <label class="block text-xs font-bold text-slate-500 dark:text-slate-400 uppercase mb-1 ml-1">Điểm đến</label>
-            <button type="button" wire:click="openToModal"
-                class="w-full flex items-center gap-2 border border-slate-300 dark:border-slate-600 rounded-xl p-3 bg-white dark:bg-slate-700 hover:border-primary transition text-left">
-                <span class="material-icons text-slate-400 shrink-0">flight_land</span>
-                <div class="flex-1 min-w-0">
-                    <div class="font-bold text-slate-800 dark:text-white truncate text-sm">{{ $toName }}</div>
-                    <div class="text-xs text-slate-400">{{ $toCode }}</div>
-                </div>
-            </button>
         </div>
 
         <button type="submit"
@@ -104,45 +111,50 @@
 
     {{-- ======== FROM MODAL ======== --}}
     @if($showFromModal)
-    <div class="fixed inset-0 z-50 flex items-start justify-center pt-6 px-4"
-        x-data x-init="$el.querySelector('input')?.focus()">
-        <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-2xl w-full max-w-2xl max-h-[80vh] overflow-hidden flex flex-col">
-            <div class="flex items-center justify-between p-4 border-b border-slate-100 dark:border-slate-700">
-                <h2 class="font-bold text-lg">Chọn thành phố / sân bay</h2>
+    <div class="fixed inset-0 z-50 flex items-start justify-center pt-4 px-3 overflow-y-auto">
+        <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-2xl w-full max-w-2xl max-h-[85vh] overflow-hidden flex flex-col my-4">
+            <div class="flex items-center justify-between p-4 border-b border-slate-100 dark:border-slate-700 shrink-0">
+                <h2 class="font-bold text-lg">Chọn điểm khởi hành</h2>
                 <button wire:click="closeModals" class="p-1 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-full">
                     <span class="material-icons">close</span>
                 </button>
             </div>
-            {{-- Search field with current selection badge --}}
-            <div class="p-4 border-b border-slate-100 dark:border-slate-700">
-                <p class="text-xs font-bold text-slate-500 uppercase mb-2">Từ</p>
+            {{-- Search --}}
+            <div class="p-3 border-b border-slate-100 dark:border-slate-700 shrink-0">
                 <div class="flex items-center gap-2 border border-slate-300 dark:border-slate-600 rounded-xl px-3 py-2 bg-slate-50 dark:bg-slate-700">
                     <span class="material-icons text-slate-400 text-lg">search</span>
                     <input wire:model.live.debounce.300ms="searchQuery"
                         class="flex-1 bg-transparent border-none focus:ring-0 p-0 text-sm placeholder-slate-400"
                         placeholder="Nhập tên thành phố hoặc mã sân bay"
                         type="text" />
+                    @if($fromCode)
                     <span class="bg-primary text-white text-xs font-bold px-2 py-1 rounded-md shrink-0">{{ $fromCode }}</span>
+                    @endif
                 </div>
             </div>
             {{-- Content --}}
             <div class="overflow-y-auto flex-1">
                 @if($filtered !== null)
                 {{-- Search results --}}
-                <div class="p-4 grid grid-cols-2 gap-2">
+                <div class="p-4 grid grid-cols-2 sm:grid-cols-3 gap-2">
                     @forelse($filtered as $ap)
                     <button wire:click="selectFrom('{{ $ap->name }}','{{ $ap->code }}')"
-                        class="text-left px-3 py-2 rounded-lg hover:bg-blue-50 dark:hover:bg-slate-700 text-sm text-slate-700 dark:text-slate-300 flex justify-between items-center group">
-                        <span>{{ $ap->name }}</span>
-                        <span class="text-xs font-bold text-primary opacity-0 group-hover:opacity-100">{{ $ap->code }}</span>
+                        class="w-full text-left py-2 px-3 rounded-lg border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-800 hover:border-primary hover:text-primary transition flex flex-col items-start gap-0.5 group">
+                        <span class="text-xs font-bold leading-tight group-hover:text-primary transition">{{ $ap->name }}</span>
+                        <div class="flex items-center gap-1 flex-wrap">
+                            <span class="text-[10px] text-slate-400 font-medium bg-slate-100 dark:bg-slate-700 px-1.5 py-0.5 rounded">{{ $ap->code }}</span>
+                            @if($ap->min_price)
+                            <span class="text-[10px] text-green-600 font-bold">{{ number_format($ap->min_price, 0, ',', '.') }}đ</span>
+                            @endif
+                        </div>
                     </button>
                     @empty
-                    <p class="col-span-2 text-slate-400 text-sm py-4 text-center">Không tìm thấy sân bay nào.</p>
+                    <p class="col-span-3 text-slate-400 text-sm py-4 text-center">Không tìm thấy sân bay nào.</p>
                     @endforelse
                 </div>
                 @else
-                {{-- Tabs --}}
-                <div class="flex border-b border-slate-100 dark:border-slate-700 px-2 overflow-x-auto">
+                {{-- Region Tabs --}}
+                <div class="flex border-b border-slate-100 dark:border-slate-700 px-2 overflow-x-auto shrink-0">
                     @foreach($regions as $region)
                     <button wire:click="setFromTab('{{ $region->name }}')"
                         class="px-4 py-3 text-sm font-bold whitespace-nowrap border-b-2 transition
@@ -151,26 +163,29 @@
                     </button>
                     @endforeach
                 </div>
-                {{-- Airports by sub-region --}}
+                {{-- Airport grid by sub-region --}}
                 @foreach($regions as $region)
                 @if($activeFromTab === $region->name)
-                <div class="p-4" x-data="{ openRegions: [] }">
-                    <div class="space-y-4">
-                        @foreach($region->subRegions as $sub)
-                        <div class="border border-slate-100 dark:border-slate-700 rounded-xl p-3 bg-slate-50/50 dark:bg-slate-700/50">
-                            <p class="text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-3">{{ $sub->name }}</p>
-                            <div class="grid grid-cols-2 shadow-sm sm:grid-cols-3 gap-2">
-                                @foreach($sub->airports as $ap)
-                                <button wire:click="selectFrom('{{ $ap->name }}','{{ $ap->code }}')"
-                                    class="w-full text-left py-2 px-3 rounded-lg border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-800 hover:border-primary hover:text-primary transition flex flex-col items-start gap-0.5 group">
-                                    <span class="text-xs font-bold leading-tight group-hover:text-primary transition">{{ $ap->name }}</span>
+                <div class="p-4 space-y-4">
+                    @foreach($region->subRegions as $sub)
+                    <div class="border border-slate-100 dark:border-slate-700 rounded-xl p-3 bg-slate-50/50 dark:bg-slate-700/50">
+                        <p class="text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-3">{{ $sub->name }}</p>
+                        <div class="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                            @foreach($sub->airports as $ap)
+                            <button wire:click="selectFrom('{{ $ap->name }}','{{ $ap->code }}')"
+                                class="w-full text-left py-2 px-3 rounded-lg border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-800 hover:border-primary hover:text-primary transition flex flex-col items-start gap-0.5 group">
+                                <span class="text-xs font-bold leading-tight group-hover:text-primary transition">{{ $ap->name }}</span>
+                                <div class="flex items-center gap-1 flex-wrap">
                                     <span class="text-[10px] text-slate-400 font-medium bg-slate-100 dark:bg-slate-700 px-1.5 py-0.5 rounded">{{ $ap->code }}</span>
-                                </button>
-                                @endforeach
-                            </div>
+                                    @if($ap->min_price)
+                                    <span class="text-[10px] text-green-600 font-bold">{{ number_format($ap->min_price, 0, ',', '.') }}đ</span>
+                                    @endif
+                                </div>
+                            </button>
+                            @endforeach
                         </div>
-                        @endforeach
                     </div>
+                    @endforeach
                 </div>
                 @endif
                 @endforeach
@@ -182,39 +197,48 @@
 
     {{-- ======== TO MODAL ======== --}}
     @if($showToModal)
-    <div class="fixed inset-0 z-50 flex items-start justify-center pt-6 px-4">
-        <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-2xl w-full max-w-2xl max-h-[80vh] overflow-hidden flex flex-col">
-            <div class="flex items-center justify-between p-4 border-b border-slate-100 dark:border-slate-700">
-                <h2 class="font-bold text-lg">Chọn sân bay đến</h2>
-                <button wire:click="closeModals" class="text-sm text-slate-500 hover:text-slate-700 flex items-center gap-1 px-3 py-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700 transition">
-                    <span class="material-icons text-base">close</span> Đóng
+    <div class="fixed inset-0 z-50 flex items-start justify-center pt-4 px-3 overflow-y-auto">
+        <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-2xl w-full max-w-2xl max-h-[85vh] overflow-hidden flex flex-col my-4">
+            <div class="flex items-center justify-between p-4 border-b border-slate-100 dark:border-slate-700 shrink-0">
+                <h2 class="font-bold text-lg">Chọn điểm đến</h2>
+                <button wire:click="closeModals" class="p-1 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-full">
+                    <span class="material-icons">close</span>
                 </button>
             </div>
-            <div class="p-4 border-b border-slate-100 dark:border-slate-700">
+            {{-- Search --}}
+            <div class="p-3 border-b border-slate-100 dark:border-slate-700 shrink-0">
                 <div class="flex items-center gap-2 border border-slate-300 dark:border-slate-600 rounded-xl px-3 py-2 bg-slate-50 dark:bg-slate-700">
                     <span class="material-icons text-slate-400 text-lg">search</span>
                     <input wire:model.live.debounce.300ms="searchQuery"
                         class="flex-1 bg-transparent border-none focus:ring-0 p-0 text-sm placeholder-slate-400"
                         placeholder="Nhập tên thành phố hoặc mã sân bay"
                         type="text" />
-                    <button class="bg-primary text-white text-xs font-bold px-3 py-1.5 rounded-md shrink-0">Chọn</button>
+                    @if($toCode)
+                    <span class="bg-primary text-white text-xs font-bold px-2 py-1 rounded-md shrink-0">{{ $toCode }}</span>
+                    @endif
                 </div>
             </div>
+            {{-- Content --}}
             <div class="overflow-y-auto flex-1">
                 @if($filtered !== null)
-                <div class="p-4 grid grid-cols-2 gap-2">
+                <div class="p-4 grid grid-cols-2 sm:grid-cols-3 gap-2">
                     @forelse($filtered as $ap)
                     <button wire:click="selectTo('{{ $ap->name }}','{{ $ap->code }}')"
-                        class="text-left px-3 py-2 rounded-lg hover:bg-blue-50 dark:hover:bg-slate-700 text-sm text-slate-700 dark:text-slate-300 flex justify-between items-center group">
-                        <span>{{ $ap->name }}</span>
-                        <span class="text-xs font-bold text-primary opacity-0 group-hover:opacity-100">{{ $ap->code }}</span>
+                        class="w-full text-left py-2 px-3 rounded-lg border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-800 hover:border-primary hover:text-primary transition flex flex-col items-start gap-0.5 group">
+                        <span class="text-xs font-bold leading-tight group-hover:text-primary transition">{{ $ap->name }}</span>
+                        <div class="flex items-center gap-1 flex-wrap">
+                            <span class="text-[10px] text-slate-400 font-medium bg-slate-100 dark:bg-slate-700 px-1.5 py-0.5 rounded">{{ $ap->code }}</span>
+                            @if($ap->min_price)
+                            <span class="text-[10px] text-green-600 font-bold">{{ number_format($ap->min_price, 0, ',', '.') }}đ</span>
+                            @endif
+                        </div>
                     </button>
                     @empty
-                    <p class="col-span-2 text-slate-400 text-sm py-4 text-center">Không tìm thấy sân bay nào.</p>
+                    <p class="col-span-3 text-slate-400 text-sm py-4 text-center">Không tìm thấy sân bay nào.</p>
                     @endforelse
                 </div>
                 @else
-                <div class="flex border-b border-slate-100 dark:border-slate-700 px-2 overflow-x-auto">
+                <div class="flex border-b border-slate-100 dark:border-slate-700 px-2 overflow-x-auto shrink-0">
                     @foreach($regions as $region)
                     <button wire:click="setToTab('{{ $region->name }}')"
                         class="px-4 py-3 text-sm font-bold whitespace-nowrap border-b-2 transition
@@ -225,23 +249,26 @@
                 </div>
                 @foreach($regions as $region)
                 @if($activeToTab === $region->name)
-                <div class="p-4">
-                    <div class="space-y-4">
-                        @foreach($region->subRegions as $sub)
-                        <div class="border border-slate-100 dark:border-slate-700 rounded-xl p-3 bg-slate-50/50 dark:bg-slate-700/50">
-                            <p class="text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-3">{{ $sub->name }}</p>
-                            <div class="grid grid-cols-2 sm:grid-cols-3 gap-2">
-                                @foreach($sub->airports as $ap)
-                                <button wire:click="selectTo('{{ $ap->name }}','{{ $ap->code }}')"
-                                    class="w-full text-left py-2 px-3 rounded-lg border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-800 hover:border-primary hover:text-primary transition flex flex-col items-start gap-0.5 group">
-                                    <span class="text-xs font-bold leading-tight group-hover:text-primary transition">{{ $ap->name }}</span>
+                <div class="p-4 space-y-4">
+                    @foreach($region->subRegions as $sub)
+                    <div class="border border-slate-100 dark:border-slate-700 rounded-xl p-3 bg-slate-50/50 dark:bg-slate-700/50">
+                        <p class="text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-3">{{ $sub->name }}</p>
+                        <div class="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                            @foreach($sub->airports as $ap)
+                            <button wire:click="selectTo('{{ $ap->name }}','{{ $ap->code }}')"
+                                class="w-full text-left py-2 px-3 rounded-lg border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-800 hover:border-primary hover:text-primary transition flex flex-col items-start gap-0.5 group">
+                                <span class="text-xs font-bold leading-tight group-hover:text-primary transition">{{ $ap->name }}</span>
+                                <div class="flex items-center gap-1 flex-wrap">
                                     <span class="text-[10px] text-slate-400 font-medium bg-slate-100 dark:bg-slate-700 px-1.5 py-0.5 rounded">{{ $ap->code }}</span>
-                                </button>
-                                @endforeach
-                            </div>
+                                    @if($ap->min_price)
+                                    <span class="text-[10px] text-green-600 font-bold">{{ number_format($ap->min_price, 0, ',', '.') }}đ</span>
+                                    @endif
+                                </div>
+                            </button>
+                            @endforeach
                         </div>
-                        @endforeach
                     </div>
+                    @endforeach
                 </div>
                 @endif
                 @endforeach
