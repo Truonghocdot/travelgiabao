@@ -154,17 +154,20 @@
                 {{-- Airports by sub-region --}}
                 @foreach($regions as $region)
                 @if($activeFromTab === $region->name)
-                <div class="p-4">
-                    <div class="grid grid-cols-2 md:grid-cols-3 gap-x-6 gap-y-1">
+                <div class="p-4" x-data="{ openRegions: [] }">
+                    <div class="space-y-4">
                         @foreach($region->subRegions as $sub)
-                        <div>
-                            <p class="text-xs font-bold text-slate-500 uppercase tracking-wider mt-3 mb-2">{{ $sub->name }}</p>
-                            @foreach($sub->airports as $ap)
-                            <button wire:click="selectFrom('{{ $ap->name }}','{{ $ap->code }}')"
-                                class="block w-full text-left py-1.5 px-2 rounded-lg hover:bg-blue-50 dark:hover:bg-slate-700 text-sm text-slate-700 dark:text-slate-300 hover:text-primary transition">
-                                {{ $ap->name }}
-                            </button>
-                            @endforeach
+                        <div class="border border-slate-100 dark:border-slate-700 rounded-xl p-3 bg-slate-50/50 dark:bg-slate-700/50">
+                            <p class="text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-3">{{ $sub->name }}</p>
+                            <div class="grid grid-cols-2 shadow-sm sm:grid-cols-3 gap-2">
+                                @foreach($sub->airports as $ap)
+                                <button wire:click="selectFrom('{{ $ap->name }}','{{ $ap->code }}')"
+                                    class="w-full text-left py-2 px-3 rounded-lg border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-800 hover:border-primary hover:text-primary transition flex flex-col items-start gap-0.5 group">
+                                    <span class="text-xs font-bold leading-tight group-hover:text-primary transition">{{ $ap->name }}</span>
+                                    <span class="text-[10px] text-slate-400 font-medium bg-slate-100 dark:bg-slate-700 px-1.5 py-0.5 rounded">{{ $ap->code }}</span>
+                                </button>
+                                @endforeach
+                            </div>
                         </div>
                         @endforeach
                     </div>
@@ -223,16 +226,19 @@
                 @foreach($regions as $region)
                 @if($activeToTab === $region->name)
                 <div class="p-4">
-                    <div class="grid grid-cols-2 md:grid-cols-3 gap-x-6 gap-y-1">
+                    <div class="space-y-4">
                         @foreach($region->subRegions as $sub)
-                        <div>
-                            <p class="text-xs font-bold text-slate-500 uppercase tracking-wider mt-3 mb-2">{{ $sub->name }}</p>
-                            @foreach($sub->airports as $ap)
-                            <button wire:click="selectTo('{{ $ap->name }}','{{ $ap->code }}')"
-                                class="block w-full text-left py-1.5 px-2 rounded-lg hover:bg-blue-50 dark:hover:bg-slate-700 text-sm text-slate-700 dark:text-slate-300 hover:text-primary transition">
-                                {{ $ap->name }}
-                            </button>
-                            @endforeach
+                        <div class="border border-slate-100 dark:border-slate-700 rounded-xl p-3 bg-slate-50/50 dark:bg-slate-700/50">
+                            <p class="text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-3">{{ $sub->name }}</p>
+                            <div class="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                                @foreach($sub->airports as $ap)
+                                <button wire:click="selectTo('{{ $ap->name }}','{{ $ap->code }}')"
+                                    class="w-full text-left py-2 px-3 rounded-lg border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-800 hover:border-primary hover:text-primary transition flex flex-col items-start gap-0.5 group">
+                                    <span class="text-xs font-bold leading-tight group-hover:text-primary transition">{{ $ap->name }}</span>
+                                    <span class="text-[10px] text-slate-400 font-medium bg-slate-100 dark:bg-slate-700 px-1.5 py-0.5 rounded">{{ $ap->code }}</span>
+                                </button>
+                                @endforeach
+                            </div>
                         </div>
                         @endforeach
                     </div>
